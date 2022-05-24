@@ -1,0 +1,403 @@
+include <Rso/Game/Protocol>
+include <Rso/Physics/Protocol>
+include <Rso/GameUtil/Protocol>
+
+using namespace rso
+using namespace net
+using namespace game
+using namespace physics
+using namespace gameutil
+
+typedef int64 TIndex
+typedef int32 TID
+typedef int32 TLevel
+typedef int32 THP
+typedef int8 TSlotNo
+typedef int32 TExp
+typedef int32 TRank
+typedef int8 TTeamCnt
+
+const TVer c_Ver_Main 14
+
+const double c_ScreenWidth 3.448
+const double c_ScreenWidth_2 c_ScreenWidth*0.5
+const double c_ScreenHeight 1.5
+const double c_ScreenHeight_2 c_ScreenHeight*0.5
+const double c_LakeWidth_2 0.736
+const double c_LakeHeight 0.18
+const double c_PlayerWidth_2 0.065
+const double c_PlayerWidth c_PlayerWidth_2*2.0
+const double c_PlayerHeight 0.169
+const double c_MaxVel c_ScreenWidth*0.22
+const double c_MaxVelForNet c_MaxVel*0.8
+const double c_FlapOnAcc c_ScreenWidth*0.25
+const double c_RunAcc c_ScreenWidth*0.5
+const double c_AccExt c_ScreenWidth
+const double c_Gravity -c_FlapOnAcc
+const double c_FlapDeltaVel c_ScreenWidth*0.076
+const double c_MaxVelParachuteX c_MaxVel*0.25
+const double c_MaxVelParachuteY c_MaxVel*0.2
+const double c_GravityParachute c_Gravity*0.2
+const double c_AccParachuteX c_FlapOnAcc*0.5
+const int32 c_MaxPlayer 6
+const double c_GhostSpeed 3.0
+const int8 c_BalloonCountForRegen 2
+const int8 c_BalloonCountForPump 1
+const int8 c_PumpCountForBalloon 6
+
+
+enum class EProtoNetCs
+{
+	Chat
+	FCMTokenSet
+	FCMTokenUnset
+	FCMCanPushAtNight
+	ChangeLanguage
+	BuyGoods
+	Purchase
+
+	SelectChar
+	BattleJoin
+	BattleOut
+	BattleMove
+	BattleMove2
+	BattleTurn
+	BattleHit
+	BattlePump
+	BattleGhostHit
+
+	Max
+	Null
+}
+enum class EProtoNetSc
+{
+	Ret
+	Noti
+	Msg
+	Login
+	Chat
+	UserExp
+	PurchaseResourcesPack
+	PurchaseSpot
+
+	BattleJoin
+	BattleOut
+	BattleBegin
+	BattleEnd
+	BattleMove
+	BattleMove2
+	BattleTurn
+	BattleHit
+	BattleHitOther
+	BattlePump
+	BattleGhostMove
+	BattleGhostHit
+	BattleWhaleHit
+	BattleDrown
+	BattleRegen
+
+	Max
+}
+enum class ERet
+{
+	Ok
+	InvalidTime
+	UserDoesNotExist
+	SameCanNotPushAtNight
+	SameCode
+	InvalidLanguage
+	InvalidShopID
+	InvalidGoodsID
+	InvalidCharCode
+	ReceiptCheckFail
+	SPError
+
+	NotBattleJoining
+	AlreadyBattleJoining
+	AlreadyInBattle
+	InvalidBattleType
+	MatchInsertFail
+	BattleBeginFail
+
+	Max
+	Null
+}
+enum class ENoti
+{
+	Ok
+	DupLogin
+	Max
+	Null
+}
+
+enum class ELanguage : uint8
+{
+	English
+	Korean
+	Max
+	Null
+}
+
+struct SUserLoginOption
+{
+	EOS OS
+}
+struct SUserCreateOption
+{
+	SUserLoginOption LoginOption
+	ELanguage Language
+}
+enum class EResource
+{
+	Gold
+	Star
+	Dia
+	Max
+	Null
+}
+
+typedef int32 TResource
+typedef array<TResource,3> TResources
+
+struct SRetNetSc
+{
+	ERet Ret
+}
+struct SNotiNetSc
+{
+	ENoti Noti
+}
+struct SMsgNetSc
+{
+	wstring Msg
+}
+struct SResourceTypeData
+{
+	EResource Type
+	TResource Data
+}
+struct SUserCore
+{
+	TResources Resources
+	int8 Debug
+	int32 SelectedCharCode
+}
+struct SUserNet : SUserCore
+{
+	TExp Exp
+	bool CanPushAtNight
+	int32 Point
+}
+typedef set<int32> TChars
+struct SLoginNetSc
+{
+	SUserNet User
+	TChars Chars
+}
+struct SUserExpNetSc
+{
+	TExp Exp
+}
+
+struct SChatNetCs
+{
+	wstring Msg
+}
+struct SChatNetSc
+{
+	wstring Msg
+}
+
+struct SFCMTokenSetNetCs
+{
+	wstring Token
+}
+struct SFCMTokenUnsetNetCs
+{
+}
+struct SFCMCanPushAtNightNetCs
+{
+	bool CanPush
+}
+struct SChangeLanguageNetCs
+{
+	ELanguage Language
+}
+struct SBuyGoodsNetCs
+{
+	TID ID
+}
+struct SPurchaseNetCs
+{
+	wstring ProductID
+	wstring PurchaseToken
+}
+struct SPurchaseResourcesPackNetSc
+{
+	wstring ProductID
+	TResources ResourcesAdded
+}
+
+struct SSelectCharNetCs
+{
+	int32 Code
+}
+
+struct SBattleType
+{
+	int8 MemberCount
+	TTeamCnt TeamCount
+}
+struct SBattleJoinNetCs
+{
+	SBattleType BattleType
+}
+struct SBattleJoinNetSc
+{
+}
+struct SBattleOutNetCs
+{
+}
+struct SBattleOutNetSc
+{
+}
+struct SCharacterMove
+{
+	bool IsGround
+	bool IsFlapOn
+	int8 Dir
+	SPoint Pos
+	SPoint Vel
+	SPoint Acc
+	SPoint AccExt
+}
+struct SCharacter
+{
+	SCharacterMove Move
+	int8 BalloonCount
+	int8 PumpCount
+	int8 Face
+	double XTime
+	double YTime
+}
+struct SBattlePlayer
+{
+	TUID UID
+	wstring Nick
+	TTeamCnt TeamIndex
+	int32 CharCode
+	bool Alive
+	SCharacter Character
+	double InvulerableEndTime
+}
+struct SBattleBeginNetSc
+{
+	vector<SBattlePlayer> Players
+}
+
+struct SPlayerBattleInfo
+{
+	int32 Point
+}
+typedef vector<SPlayerBattleInfo> TPlayerBattleInfos
+struct STeamBattleInfo
+{
+}
+typedef vector<STeamBattleInfo> TTeamBattleInfos
+struct SBattleEndNetSc
+{
+	TPlayerBattleInfos PlayerBattleInfos
+	TTeamBattleInfos TeamBattleInfos
+}
+struct SBattleMoveNetCs
+{
+	SCharacterMove Move
+}
+struct SBattleMoveNetSc
+{
+	int32 PlayerIndex
+	SCharacterMove Move
+}
+struct SBattleMove2NetCs
+{
+	SCharacterMove Move
+	int32 Option
+}
+struct SBattleMove2NetSc : SBattleMove2NetCs
+{
+	int32 PlayerIndex
+}
+struct SBattleTurnNetCs
+{
+	int8 Face
+}
+struct SBattleTurnNetSc : SBattleTurnNetCs
+{
+	int32 PlayerIndex
+}
+struct SBattleHitNetCs
+{
+	SCharacterMove Move
+	int32 Option
+	int32 TargetPlayerIndex
+}
+struct SBattleHitNetSc
+{
+	int32 TargetPlayerIndex
+}
+struct SBattleHitOtherNetSc : SBattleHitNetCs
+{
+	int32 PlayerIndex
+}
+struct SBattlePumpNetCs
+{
+}
+struct SBattlePumpNetSc
+{
+	int32 PlayerIndex
+}
+struct SBattleGhostMoveNetSc
+{
+	SPoint Pos
+}
+struct SBattleGhostHitNetCs
+{
+}
+struct SBattleGhostHitNetSc
+{
+	int32 PlayerIndex
+}
+struct SBattleWhaleHitNetSc
+{
+	int32 PlayerIndex
+}
+struct SBattleDrownNetSc
+{
+	int32 PlayerIndex
+}
+struct SBattleRegenNetSc
+{
+	int32 PlayerIndex
+	SCharacterMove Move
+	double InvulerableEndTime
+}
+
+
+struct SRankingUserCore
+{
+	wstring Nick
+}
+struct SRankingUser : SRankingUserCore
+{
+	TUID UID
+	int32 Point
+}
+typedef list<SRankingUser> TRankingUsers
+struct SRanking
+{
+	TRankingUsers RankingUsers
+}
+struct SRankingUserPointMin
+{
+	int32 UserPointMin
+}

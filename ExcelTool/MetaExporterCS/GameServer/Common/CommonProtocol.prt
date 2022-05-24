@@ -1,0 +1,8 @@
+namespace bb
+{
+	using namespace rso
+	using namespace core
+
+	const int32 c_IDLengthMax 255
+	const int32 c_BinaryIDLengthMax 32
+}

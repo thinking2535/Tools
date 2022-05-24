@@ -1,0 +1,1152 @@
+include <Rso/Game/Protocol>
+include MetaProtocol
+
+namespace bb
+{
+	using namespace rso
+	using namespace net
+	using namespace game
+	using namespace physics
+
+	enum class ETrackingKey
+	{
+		apple_login
+		facebook_login
+		google_login
+		guest_login
+		guest_to_apple
+		guest_to_facebook
+		guest_to_google
+		ads_dailyquest_result
+		ads_quest
+		ads_result_dodge
+		ads_result_island
+		ads_shop_free
+		ads_shop_free_1
+		ads_shop_free_10
+		ads_shop_free_3
+		ads_shop_free_5
+		unblock_character
+		dailyquest_ad_view
+		quest_reward_complete_1
+		quest_reward_complete_3
+		quest_reward_complete_5
+		quest_reward_complete_7
+		quest_reward_complete_daily
+		earn_keycoin
+		earn_ruby_reward
+		cancel_multiplay
+		cancel_multiplay_startsingle
+		oneone_select
+		oneone_select_r2
+		oneone_select_total
+		singleplay_select_arrow
+		singleplay_select_arrow_r2
+		singleplay_select_arrow_total
+		singleplay_select_arrowM
+		singleplay_select_arrowM_r2
+		singleplay_select_arrowM_total
+		singleplay_select_island
+		singleplay_select_island_r2
+		singleplay_select_island_total
+		singleplay_select_islandM
+		singleplay_select_islandM_r2
+		singleplay_select_islandM_total
+		survival3pplay_select
+		survival3pplay_select_r2
+		survival3pplay_select_total
+		survivalplay_select
+		survivalplay_select_r2
+		survivalplay_select_total
+		teamplay_select_team2
+		teamplay_select_team2_r2
+		teamplay_select_team2_total
+		teamplay_select_teamB
+		teamplay_select_teamB_r2
+		teamplay_select_teamB_total
+		bronze_rank_1
+		bronze_rank_2
+		bronze_rank_3
+		bronze_rank_4
+		bronze_rank_5
+		champion_rank_1
+		champion_rank_2
+		champion_rank_3
+		champion_rank_4
+		champion_rank_5
+		dia_rank_1
+		dia_rank_2
+		dia_rank_3
+		dia_rank_4
+		dia_rank_5
+		gold_rank_1
+		gold_rank_2
+		gold_rank_3
+		gold_rank_4
+		gold_rank_5
+		silver_rank_1
+		silver_rank_2
+		silver_rank_3
+		silver_rank_4
+		silver_rank_5
+		unrank_1
+		unrank_2
+		unrank_3
+		unrank_4
+		unrank_5
+		weekly_ranking_reward
+		buy_gacha
+		gold_1050
+		gold_2900
+		gold_380
+		gold_6780
+		pay_characterbox
+		pay_package
+		spend_gold_gacha
+		spend_gold_singlecharge
+		spend_keycoin
+		spend_ruby_shop
+		title_end
+		tutorial_1
+		tutorial_2
+		tutorial_3
+		tutorial_4
+		Max
+		Null
+	}
+
+	enum class EText
+	{
+		VsThree
+		LoginScene_MakeNickName
+		Global_Input_PlaceHolder
+		Global_Button_Make
+		Global_Button_Ok
+		Global_Button_Cancel
+		Global_Button_Confirm
+		Global_Popup_GameExit
+		Global_Grade_Normal
+		Global_Grade_Rare
+		Global_Grade_Epic
+		Global_Text_Ranking
+		Global_Text_Rank
+		LobbyScene_BonusStage
+		LobbyScene_Survival_Normal
+		LobbyScene_Team
+		LobbyScene_Play
+		CharacterSelectScene_Select
+		Character_Name_Kiwibird
+		Character_Name_Chick
+		Character_Name_Duckling
+		Character_Name_ShibaInu
+		Character_Name_Poodle
+		Character_Name_Turtle
+		Character_Name_Panda
+		Character_Name_Polarbear
+		Character_Name_Brownbear
+		Character_Name_Gorilla
+		Character_Name_YeTigorilla
+		Character_Name_Greenfrog
+		Character_Name_Hen
+		Character_Name_Rooster
+		Character_Name_Crowtit
+		Character_Name_Hummingbird
+		Character_Name_Gull
+		Character_Name_Macaw
+		Character_Name_Woodpecker
+		Character_Name_BigbilledBird
+		Character_Name_Eagle
+		Character_Name_Owl
+		Character_Name_Chimmy
+		Character_Name_Tata
+		Character_Name_Brown
+		Character_Name_Cony
+		ResultScene_Text_Win
+		ResultScene_Text_Lose
+		ResultScene_Text_Result
+		Character_Requirement_Kiwibird
+		CharacterSelectScene_Select_NotHave
+		MyInfoScene_MaxWinPoint
+		MyInfoScene_BestPlay
+		MyInfoScene_PersonalWin
+		MyInfoScene_TeamWin
+		LobbyScene_UserID
+		Global_Button_On
+		Global_Button_Off
+		OptionScene_Music
+		OptionScene_EffectSound
+		OptionScene_Invite_title
+		OptionScene_Facebook
+		OptionScene_Line
+		OptionScene_Kakao
+		OptionScene_Terms
+		OptionScene_Privacy
+		OptionScene_Language
+		OptionScene_Help
+		OptionScene_Setting
+		OptionScene_Vibe
+		OptionScene_LanguageText
+		Global_Popup_LanguageChanage
+		Quest_Team_Play
+		Quest_Team_Victory
+		Quest_Survival_Play
+		Quest_Survival_Victory
+		Quest_Single_Play
+		Quest_Ingame_ConsecutiveKill
+		Quest_Ingame_BalloonPopping
+		Quest_Ingame_Kill
+		Quest_Ingame_BestPlayer
+		Quest_Character_Gacha
+		Quest_Gacha_Common
+		Quest_Gacha_Ruby
+		QuestScene_Title
+		QuestScene_Refresh
+		QuestScene_Next
+		OptionScene_Language_English
+		OptionScene_Language_Korean
+		OptionScene_Language_France
+		OptionScene_Language_Germany
+		OptionScene_Language_Spain
+		OptionScene_Language_Italia
+		OptionScene_Language_ChinaCH
+		OptionScene_Language_ChinaTW
+		OptionScene_Language_Japan
+		OptionScene_Language_Portugal
+		OptionScene_Language_Russia
+		OptionScene_Language_Nederland
+		OptionScene_Language_Turkey
+		OptionScene_Language_Finland
+		OptionScene_Language_Malaysia
+		OptionScene_Language_Thailand
+		OptionScene_Language_Indonesia
+		OptionScene_Language_Vietnam
+		RankingRewardScene_Title
+		RankingRewardScene_Description
+		ShopScene_GachaText
+		ShopScene_GachaFailedText
+		Global_Text_Ticket
+		Global_Text_Gold
+		Global_Text_Dia
+		Global_Popup_ResourceNotEnough
+		Ranke_Unranked_5
+		Ranke_Unranked_4
+		Ranke_Unranked_3
+		Ranke_Unranked_2
+		Ranke_Unranked_1
+		Ranke_Bronze_5
+		Ranke_Bronze_4
+		Ranke_Bronze_3
+		Ranke_Bronze_2
+		Ranke_Bronze_1
+		Ranke_Silver_5
+		Ranke_Silver_4
+		Ranke_Silver_3
+		Ranke_Silver_2
+		Ranke_Silver_1
+		Ranke_Gold_5
+		Ranke_Gold_4
+		Ranke_Gold_3
+		Ranke_Gold_2
+		Ranke_Gold_1
+		Ranke_Diamond_5
+		Ranke_Diamond_4
+		Ranke_Diamond_3
+		Ranke_Diamond_2
+		Ranke_Diamond_1
+		Ranke_Champion_5
+		Ranke_Champion_4
+		Ranke_Champion_3
+		Ranke_Champion_2
+		Ranke_Champion_1
+		Global_Popup_AllStarCharacter
+		QuestScene_Shipping
+		QuestScene_ShippingComplete
+		LobbyScene_Survival
+		Global_Button_Receive
+		RankingRewardScene_Box
+		Character_Name_Trex
+		Character_Name_Crocodile
+		Character_Name_Tamerabbit
+		Character_Name_Hare
+		Character_Name_Deer
+		Character_Name_Reindeer
+		Character_Name_Milkcow
+		Character_Name_Bull
+		Character_Name_Horse
+		Character_Name_Zebra
+		Game_DoubleKill
+		Game_TripleKill
+		Game_QuadraKill
+		Game_LegendaryKill
+		Game_TimeOver
+		Tutorial_Title
+		Global_Button_Next
+		Global_Button_End
+		Global_Popup_Notice
+		Global_Popup_Confirm
+		SceneAccount_Term_Title
+		SceneAccount_Term_Description
+		SceneAccount_Term_TermOfUse
+		SceneAccount_Term_PrivacyPolicy
+		Global_Button_Agree
+		SceneAccount_Login_Title
+		Global_Popup_TermsOfUse_NeedAgree
+		Global_Popup_PrivacyPolicy_NeedAgree
+		Global_Popup_Terms_Cancel
+		CharacterScene_HaveCharacter
+		CharacterScene_NotHaveCharacter
+		RankingServer_Error_Connection
+		RankingServer_Error_Unlink
+		SceneMyInfo_Title
+		SceneLobby_BtnText_Character
+		SceneLobby_BtnText_Shop
+		SceneLobby_BtnText_Quest
+		SceneLobby_BtnText_Ranking
+		Character_Description_Kiwibird
+		Character_Description_Chick
+		Character_Description_Duckling
+		Character_Description_ShibaInu
+		Character_Description_Poodle
+		Character_Description_Turtle
+		Character_Description_Panda
+		Character_Description_Polarbear
+		Character_Description_Brownbear
+		Character_Description_Gorilla
+		Character_Description_YeTigorilla
+		Character_Description_Greenfrog
+		Character_Description_Hen
+		Character_Description_Rooster
+		Character_Description_Crowtit
+		Character_Description_Hummingbird
+		Character_Description_Gull
+		Character_Description_Macaw
+		Character_Description_Woodpecker
+		Character_Description_BigbilledBird
+		Character_Description_Eagle
+		Character_Description_Owl
+		Character_Description_Trex
+		Character_Description_Crocodile
+		Character_Description_Tamerabbit
+		Character_Description_Hare
+		Character_Description_Deer
+		Character_Description_Reindeer
+		Character_Description_Milkcow
+		Character_Description_Bull
+		Character_Description_Horse
+		Character_Description_Zebra
+		SceneMyInfo_NickNameChangeFailed
+		SceneAccount_LoginFailed
+		SceneAccount_LoginCancel
+		SceneAccount_ModuelInitFailed
+		GlobalPopup_Network_Unlink
+		GlobalPopup_Network_Error
+		GlobalPopup_Network_LinkFailed
+		SceneMyInfo_NickNameMakeFailed
+		ResultScene_Text_Draw
+		Global_Button_Change
+		SceneAccount_CautionText
+		Global_Button_QuickStart
+		Global_Button_AccountLink
+		SceneAccount_GuestLogin
+		GlobalPopup_InvalidNickLength
+		Game_FirstHit
+		Quest_BlowBalloon
+		Quest_PlayNormal
+		Quest_PlayRare
+		Quest_PlayEpic
+		Have_ForbiddenWord
+		SceneSetting_Notice
+		GlobalPopup_TermOfUse
+		SceneSetting_Push
+		SceneBattleEnd_BestPlayer
+		SceneLobby_SinglePlay
+		SceenSingle_Wave
+		SceenSingle_Time
+		SceenSingle_Bonus
+		SceneMyInfo_Uid_Copy
+		ShopScene_Gacha
+		ShopScene_Gold
+		ShopScene_Dia
+		ShopPopup_Text_Cancel
+		ShopPopup_Text_Error_Duplicate
+		ShopPopup_Text_Error_Code
+		ShopGoods_Gold1
+		ShopGoods_Gold2
+		ShopGoods_Gold3
+		ShopGoods_Gold4
+		ShopGoods_Dia1
+		ShopGoods_Dia2
+		ShopGoods_Dia3
+		ShopGoods_Dia4
+		ShopGoods_Dia5
+		ShopGoods_Dia6
+		Global_Text_CP
+		SceneCharacterList_UnLockRank
+		SceneCharacterList_UnLockGacha
+		SceneCharacterList_UnLockEvent
+		Character_Name_Fox
+		Character_Name_Cat
+		Character_Name_Tiger
+		Character_Name_Pig
+		Character_Name_Elephant
+		Character_Description_Fox
+		Character_Description_Cat
+		Character_Description_Tiger
+		Character_Description_Pig
+		Character_Description_Elephant
+		GlobalPopup_Text_InvalidVersion
+		GlobalPopup_Button_Update
+		GlobalPopup_Text_SingleCharge
+		GlobalPopup_Text_AdFailed
+		QuestScene_Text_AdBonus
+		QuestScene_Text_AdBonusAlarm
+		QuestScene_Text_GetReward
+		QuestScene_Text_Title
+		QuestScene_Text_DailyMission
+		QuestScene_Text_DailyMissionWating
+		QuestScene_Text_DailyMissionTimer
+		SceenSingle_Score
+		ShopPopup_Text_CharacterRate
+		RankingScene_Multi
+		QuestScene_DailyQuest_NotComplete
+		Quest_PlaySingle
+		Quest_RechargingSingle
+		Quest_SingleWave
+		Quest_SingleTime
+		Quest_SinglePlayGoldGet
+		Quest_SinglePlayScoreGet
+		Quest_SurvivalPlayRanking
+		Quest_RankPointGet
+		QuestScene_Text_Ad_Button
+		Character_Name_Werewolf
+		Character_Name_Mummy
+		Character_Name_Ghost
+		Character_Name_Witch
+		Character_Name_Jackol
+		Character_Name_Bat
+		Character_Description_Werewolf
+		Character_Description_Mummy
+		Character_Description_Ghost
+		Character_Description_Witch
+		Character_Description_Jackol
+		Character_Description_Bat
+		GlobalPopup_Text_ServerCheck
+		GlobalPopup_Text_NoneCp_Character
+		RankingScene_Text_RankPoint
+		RankingScene_Text_TOP100
+		RankingScene_Text_Point
+		ShopScene_Upscale_Gold
+		ShopScene_Upscale_Dia
+		NickNameChange_Description
+		RankingScene_Text_MyRanking
+		GlobalPopup_SameNick
+		ShopGacha_Event_Halloween
+		Firebase_Login_Duplicate
+		SceneSetting_Coupon_Title
+		SceneSetting_Coupon_Button_Send
+		SceneSetting_Coupon_Placeholder
+		SceneSetting_Coupon_Used
+		SceneSetting_Coupon_Not
+		SceneSetting_Coupon_Duplicate
+		SceneMatching_PlayerSearching
+		SceneMatching_ReadyPlayer
+		LobbyScene_Solo
+		Quest_SoloPlay
+		Quest_SoloVictory
+		Character_Status_Sky
+		Character_Status_Land
+		Character_Status_Stamina
+		Character_Status_Pump
+		SceenSingle_ExitPopup
+		SceenSingle_Replay
+		LobbyScene_SelectMode
+		LobbyScene_FlyAway
+		LobbyScene_Dodge
+		ShopScene_Upscale_DailyFree
+		ShopScene_Upscale_LimitedPackage
+		ShopScene_Upscale_Skin
+		ShopScene_Upscale_Balloon
+		ShopScene_Upscale_Hat
+		ShopScene_Popup_CheckBuy
+		ShopScene_Popup_CheckGacha
+		Tutorial_Text_Complete
+		Tutorial_Popup_Skip
+		SceneSetting_Tutorial_Title
+		Skin_Name_Kiwibird
+		Skin_Name_Chick
+		Skin_Name_Duckling
+		Skin_Name_ShibaInu
+		Skin_Name_Poodle
+		Skin_Name_Turtle
+		Skin_Name_Panda
+		Skin_Name_Polarbear
+		Skin_Name_BrownBear
+		Skin_Name_Gorilla
+		Skin_Name_YeTigorilla
+		Skin_Name_Greenfrog
+		Skin_Name_Hen
+		Skin_Name_Rooster
+		Skin_Name_Crowtit
+		Skin_Name_Hummingbird
+		Skin_Name_Gull
+		Skin_Name_Macaw
+		Skin_Name_Woodpecker
+		Skin_Name_BigbilledBird
+		Skin_Name_Eagle
+		Skin_Name_Owl
+		Skin_Name_Trex
+		Skin_Name_Crocodile
+		Skin_Name_Tamerabbit
+		Skin_Name_Hare
+		Skin_Name_Deer
+		Skin_Name_Reindeer
+		Skin_Name_Milkcow
+		Skin_Name_Bull
+		Skin_Name_Horse
+		Skin_Name_Zebra
+		Skin_Name_Fox
+		Skin_Name_Cat
+		Skin_Name_Tiger
+		Skin_Name_Pig
+		Skin_Name_Elephant
+		Skin_Name_Werewolf
+		Skin_Name_Mummy
+		Skin_Name_Ghost
+		Skin_Name_Witch
+		Skin_Name_Jackol
+		Skin_Name_Bat
+		Tutorial_Text_Start
+		OptionScene_Joypad
+		Character_Description_Bluemon
+		Character_Description_Lemon
+		Character_Description_Santa
+		Character_Description_Snowman
+		Character_Name_Santa
+		Character_Name_Snowman
+		Character_Name_Bluemon
+		Character_Name_Lemon
+		ShopScene_Popup_CheckFreeGacha
+		ShopScene_Popup_CheckAdGacha
+		SceneCharacterList_UnLockShop
+		ShopGoods_Package_Santa
+		ShopGoods_Package_Polarbear
+		ShopGoods_Package_Yetigorilla
+		ShopGoods_Package_Owl
+		ShopGoods_Package_Reindeer
+		ShopGoods_Package_Witch
+		Skin_Name_Santa
+		Skin_Name_Snowman
+		SceneShop_DayTimeText
+		SceneShop_TimeText
+		SceneShop_DailyOpen
+		SceneShop_DailyWait
+		SceneShop_Popup_DailyCountNot
+		MyInfoScene_SoloWin
+		MyInfoScene_DodgeScore
+		MyInfoScene_DodgeTime
+		MyInfoScene_FlyawayScore
+		MyInfoScene_FlyawayCount
+		MyInfoScene_IngameKill
+		MyInfoScene_ConsecutiveKill
+		MyInfoScene_BlowBalloon
+		Quest_IslandCount
+		Quest_PlayIsland
+		Quest_PlayIslandGoldGet
+		Quest_PlayIslandScoreGet
+		Popup_IslandAdReward
+		Popup_DodgeAdReward
+		Popup_DailyMissionAdReward
+		Popup_FreeBoxAdReward
+		Popup_QuestAdChange
+		RankingScene_Popup_Point
+		RankingScene_Popup_EqualPoint
+		RankingScene_Popup_Rate
+		RankingScene_Popup_Ranking
+		RankingScene_Popup_RankingPoint
+		RankingScene_Text_WeeklyRanking
+		RankingScene_Text_NoRecord
+		RankingScene_Popup_RewardMulti
+		RankingScene_Popup_RewardIsland
+		RankingScene_Popup_RewardDodge
+		RankingScene_Popup_RewardPopup
+		SceneSetting_NoticeText
+		GameTip_Island_Step01
+		GameTip_Island_Step02
+		GameTip_Island_Step03
+		GameTip_Island_Step04
+		GameTip_Island_Step05
+		GameTip_Island_Step06
+		GameTip_Island_Step07
+		Quest_CharacterName
+		MainLobby_MainInfoTip
+		MainLobby_MoneyTip
+		MainLobby_ModeTip
+		MainLobby_TrophyTip
+		Character_StatTip
+		Character_SkinTip
+		Mondey_KeyCoinTip
+		Character_KeyCoinBuy
+		Character_ListTip
+		Quest_ListTip
+		Quest_DailyMissionTip
+		RankReward_Tip
+		WeeklyRanking_Tip
+		Shop_PackageTip
+		PopupTitle_Tip
+		GameTip_Island_TipOff
+		Global_Popup_AllStarCharacterBuy
+		Global_Popup_GuestBuy
+		OptionScene_Language_India
+		SceneAccount_Term_View
+		RankingScene_Popup_TimeLine
+		RankingReward_Popup_Failed
+		Global_Button_Buy
+		SystemNotice_ServerHolding
+		SystemNotice_ServerUndergoing
+		SystemAlarm_ServerCheck
+		SystemAlarm_ServerTask
+		SystemAlarm_ServerEmergency
+		SystemAlarm_ServerMaintenance
+		SystemNotice_ServerEmergency
+		SystemNotice_ServerMaintenance
+		LobbyScene_3PSurvival
+		Quest_Survival3PPlay
+		Quest_Survival3PVictory
+		Global_Popup_News
+		Global_Popup_NewsText
+		Skin_Name_Raccoon
+		Skin_Name_Penguin
+		Skin_Name_Mouse
+		Skin_Name_Squirrel
+		Skin_Name_Hippo
+		Skin_Name_Walrus
+		Character_Name_Raccoon
+		Character_Name_Penguin
+		Character_Name_Mouse
+		Character_Name_Squirrel
+		Character_Name_Hippo
+		Character_Name_Walrus
+		Character_Description_Raccoon
+		Character_Description_Penguin
+		Character_Description_Mouse
+		Character_Description_Squirrel
+		Character_Description_Hippo
+		Character_Description_Walrus
+		LobbyScene_TeamSmall
+		Character_Name_Killerbee
+		Character_Name_Bee
+		Character_Name_Beetle
+		Character_Name_Mantis
+		Character_Name_Ladybugs
+		Character_Name_Stagbeetle
+		Character_Description_Killerbee
+		Character_Description_Bee
+		Character_Description_Beetle
+		Character_Description_Mantis
+		Character_Description_Ladybugs
+		Character_Description_Stagbeetle
+		Skin_Name_Killerbee
+		Skin_Name_Bee
+		Skin_Name_Beetle
+		Skin_Name_Mantis
+		Skin_Name_Ladybugs
+		Skin_Name_Stagbeetle
+		LobbyScene_FlyAwayRace
+		LobbyScene_DodgeArrowRace
+		Quest_MultiSinglePlay
+		Quest_MultiIslandPlay
+		ShopGoods_Package_Killerbee
+		ShopGoods_Package_Bee
+		ShopGoods_Package_Beetle
+		ShopGoods_Package_Mantis
+		ShopGoods_Package_Ladybugs
+		ShopGoods_Package_Stagbeetle
+		MuiltiItem_Name_Ink
+		MuiltiItem_Name_Scale
+		MuiltiItem_Name_Slow
+		LobbyScene_Event
+		LobbyScene_Event_Survival
+		LobbyScene_Event_Team
+		OptionScene_UpdatingInfo
+		ShopGoods_Dia7
+		Global_Button_Exit
+		LobbyScene_MultiPlay
+		MultiScene_Owner
+		MultiScene_Enter
+		MultiScene_Create
+		MultiScene_QuickEnter
+		MultiScene_Private
+		MultiScene_Individual
+		MultiScene_Team
+		MultiScene_Solo
+		MultiScene_Promote
+		MultiScene_Text_GameStart
+		MultiScne_Popup_SelectPublic
+		MultiScne_Popup_Public
+		MultiScne_Popup_Private
+		MultiScne_Popup_Password
+		MultiScne_Popup_Text_Password
+		MultiScne_Popup_SelectMode
+		MultiScne_Popup_SelectPlayMode
+		Character_Name_Uni_Kiwibird
+		Character_Name_Uni_Chick
+		Character_Name_Uni_Duckling
+		Character_Name_Uni_Poodle
+		Character_Name_Uni_Greenfrog
+		Character_Name_Uni_Crowtit
+		Character_Name_Uni_Hummingbird
+		Character_Name_Uni_Macaw
+		Character_Name_Uni_Tamerabbit
+		Character_Description_Uni_Kiwibird
+		Character_Description_Uni_Chick
+		Character_Description_Uni_Duckling
+		Character_Description_Uni_Poodle
+		Character_Description_Uni_Greenfrog
+		Character_Description_Uni_Crowtit
+		Character_Description_Uni_Hummingbird
+		Character_Description_Uni_Macaw
+		Character_Description_Uni_Tamerabbit
+		Character_Requirement_Uni_Kiwibird
+		Character_Requirement_Uni_Chick
+		Character_Requirement_Uni_Duckling
+		Character_Requirement_Uni_Poodle
+		Character_Requirement_Uni_Greenfrog
+		Character_Requirement_Uni_Crowtit
+		Character_Requirement_Uni_Hummingbird
+		Character_Requirement_Uni_Macaw
+		Character_Requirement_Uni_Tamerabbit
+		MultiScne_Popup_Info
+		MultiScene_All
+		MultiScene_Send
+		MultiScene_Chat
+		MultiScene_Popup_PwFailed
+		MultiScene_Popup_RoomFailed
+		MultiScene_Popup_Start
+		Global_Grade_Unique
+		MultiScene_Popup_ErrorQuickEnter
+		System_Chat_GameStart
+		MultiScene_Text_NoRoom
+		Global_Button_Back
+		Global_Text_CharacterInfo
+		CharacterSelectScene_Text_Tip
+		Ranking_Popup_TimeLine
+		Ranking_Popup_RewardInfo
+		CharacterSelectScene_Text_Tip2
+		ResultScene_Text_AutoExit
+		LobbyScene_Text_StartRooom
+		ShopScene_DailyFreeBox
+		ShopScene_DailyFreeBoxText
+		Global_Popup_CpNotEnough
+		ShopScene_GachaOverlapText
+		Account_LogIn_Apple
+		Account_LogIn_Google
+		Account_LogIn_FaceBook
+		Account_LogInCompleted_Apple
+		Account_LogInCompleted_Google
+		Account_LogInCompleted_FaceBook
+		Account_LogOut
+		Account_LogInCompleted
+		Account_LogOut_PopUp_Text
+		Account_SignIn_PopUp_Text
+		Character_Name_Fairy
+		Character_Name_Knight
+		Character_Name_Wizard
+		Character_Name_Princess
+		Character_Name_Dragon
+		Character_Description_Fairy
+		Character_Description_Knight
+		Character_Description_Wizard
+		Character_Description_Princess
+		Character_Description_Dragon
+		ShopGoods_Package_Fairy
+		ShopGoods_Package_Knight
+		ShopGoods_Package_Wizard
+		ShopGoods_Package_Princess
+		ShopGoods_Package_Dragon
+		Skin_Name_Fairy
+		Skin_Name_Knight
+		Skin_Name_Wizard
+		Skin_Name_Princess
+		Skin_Name_Dragon
+		Global_Popup_CloseService
+		NickNameAlreadyExists
+		Max
+		Null=-1
+	}
+	enum class EShopType : uint8
+	{
+		Gacha
+		Gold
+		Dia
+		Max
+	}
+	enum class EPlayMode
+	{
+		Solo
+		Team
+		Survival
+		SurvivalSmall
+		TeamSmall
+		IslandSolo
+		DodgeSolo
+		Island=10
+		Dodge
+		Max
+		Null=-1
+	}
+	enum class EMultiItemType
+	{
+		Null
+		Ink
+		Scale
+		Slow
+		Max
+	}
+	enum class EStatusType
+	{
+		Null
+		Sky
+		Land
+		Stamina
+		Pump
+		Max
+	}
+	typedef array<wstring,19> TTexts
+	struct STextSet
+	{
+		TTexts Texts
+	}
+	struct STextMeta
+	{
+		EText TextName
+		TTexts Texts
+	}
+
+	struct SGameRetMeta
+	{
+		EGameRet GameRetName
+		TTexts Texts
+	}
+
+	struct SCharacterClientMeta : SCharacterMeta
+	{
+		EText ETextName
+		EText ETextDescription
+		EText ETextRequirement
+		wstring PrefabName
+		wstring DescriptionIcon
+		wstring IconName
+		EStatusType Post_Status
+		int32 SkyStatus
+		int32 LandStatus
+		int32 StaminaStatus
+		int32 PumpStatus
+	}
+	struct SCharacterGradeClientMeta : SCharacterGradeMeta
+	{
+		EText ETextGradeName
+		int32 ColorR
+		int32 ColorG
+		int32 ColorB
+	}
+	struct SGameOption
+	{
+		bool IsVibe
+		bool IsMusic
+		bool IsSound
+		bool IsPush
+		bool IsPad
+		bool IsTutorial
+		ELanguage Language
+		EPlayMode SelectMode
+	}
+	struct SQuestClientMeta : SQuestMeta
+	{
+		EText ETextName
+		wstring IconName
+	}
+	struct SShopMeta
+	{
+		EText ETextName
+		wstring TextureName
+	}
+	struct SShopInGameMeta : SShopMeta
+	{
+		int32 Code
+		EResource CostType
+		int32 CostValue
+		int32 RewardCode
+		ETrackingKey AnalyticsKey
+	}
+	struct SShopIAPMeta : SShopMeta
+	{
+		wstring Pid
+		int32 DiaCount
+	}
+	struct SGachaClientMeta : SGachaMeta
+	{
+		wstring TextureName
+		bool IsEvent
+		EText EventTextName
+	}
+	struct SRankTierClientMeta : SRankTierMeta
+	{
+		int32 Level
+		EText ETextName
+		wstring TextureName
+		float RankColorR
+		float RankColorG
+		float RankColorB
+	}
+	struct SRankRewardViewMeta
+	{
+		wstring TextureName
+		EText ETextName
+		int32 Count
+	}
+	struct SRankRewardViewPackMeta
+	{
+		int32 Code
+		SRankRewardViewMeta RankRewardViewMeta
+	}
+	struct SBattleTypeMeta : SBattleType
+	{
+		bool IsServival
+		bool IsSingle
+	}
+	struct SSingleBalance
+	{
+		float MinSpeed
+		float MaxSpeed
+		float ShotDelay
+		int32 TypeFix
+		int32 CountFix
+		float SpeedFix
+		int32 Right
+		int32 Left
+		int32 Bottom
+		int32 Diagonal
+		int32 FixCount
+		int32 FixOnceCount
+		int32 BonusTerm
+		int32 BonusCointStart
+		int32 BonusCoinOnce
+		float BonusCoinSpeed
+		float CoinShotDelay
+		int32 WaveCountGold
+		int32 InitGold
+		int32 AddGold
+		int32 PlayCountMax
+		int32 ChargeCostGold
+		int32 ScoreFactorWave
+		int32 ScoreFactorTime
+		int32 ScoreFactorGold
+		int32 RefreshDurationMinute
+		int32 StageGoldCount
+		int32 StageGoldWave
+		int32 StageGoldCountMax
+		wstring ItemPattern
+		float ShieldTime
+		float StaminaTime
+		int32 GoldBarCount
+	}
+	struct SCheatMeta
+	{
+		wstring Cheat
+		wstring CheatCommand
+	}
+	struct STrackingMetaParam
+	{
+		wstring ParamKey
+		int32 ParamValue
+	}
+	struct STrackingMeta
+	{
+		ETrackingKey ETrackingKey
+		wstring EventKey
+		STrackingMetaParam Param
+	}
+	struct SGachaRewardClientMeta : SGachaRewardMeta
+	{
+		bool Event
+	}
+	struct SSingleIslandBalance
+	{
+		float IslandVelocity
+		float InitTermMin
+		float InitTermMax
+		float AddTerm
+		float InitHeight
+		float ExcludeHeight
+		float AddHeight
+		float AddExcludeHeight
+		int32 StaminaTerm
+		int32 CoinTerm
+		int32 GoldBarTerm
+		int32 GoldBarCount
+		float StaminaBonus
+		float StaminaMax
+		float StaminaApple
+		float StaminaMeat
+		float StaminaChicken
+		int32 BalanceCount
+		int32 IslandDownPercent
+		int32 IslandTypeRange
+		int32 WaveCountGold
+		int32 InitGold
+		int32 AddGold
+		float IslandInitTime
+		float IslandAddTime
+		float IslandTimeMin
+		int32 SpikeIslandTerm
+		float IslandStamina
+		int32 SpikeIslandBalanceCount
+		int32 ScoreFactorIsland
+		int32 ScoreFactorGold
+		int32 ChargeCostGold
+		int32 PlayCountMax
+		int32 RefreshDurationMinute
+		wstring ItemPattern
+	}
+	struct SSingleCharacterMove
+	{
+		SPoint Pos
+		SPoint Vel
+	}
+	struct SSingleCharacter
+	{
+		SSingleCharacterMove Move
+		bool IsGround
+		int8 Dir
+		int8 BalloonCount
+		int8 PumpCount
+		float Stamina
+		int8 Face
+		SPoint Acc
+	}
+	struct SSinglePlayer
+	{
+		TUID UID
+		wstring Nick
+		wstring CountryCode
+		TTeamCnt TeamIndex
+		int32 CharCode
+		SSingleCharacter Character
+		time_point InvulnerableEndTime
+	}
+	struct SShopPackageClientMeta : SShopPackageServerMeta
+	{
+		EText ETextName
+		wstring TextureName
+	}
+	struct SServerAlarmMeta
+	{
+		wstring Key
+		EText ETextName
+	}
+	struct SShopPackageDateMeta
+	{
+		int32 DateId
+		wstring BeginTime
+		wstring EndTime
+		int32 PackageCode
+	}
+	struct SMultiIslandBalance
+	{
+		float IslandVelocity
+		float InitTermMin
+		float InitTermMax
+		float AddTerm
+		float InitHeight
+		float ExcludeHeight
+		float AddHeight
+		float AddExcludeHeight
+		int32 StaminaTerm
+		float StaminaBonus
+		float StaminaMax
+		float StaminaApple
+		float StaminaMeat
+		float StaminaChicken
+		wstring ItemPattern
+		int32 BalanceCount
+		int32 IslandDownPercent
+		int32 IslandTypeRange
+		int32 WaveCountGold
+		int32 InitGold
+		int32 AddGold
+		float IslandInitTime
+		float IslandAddTime
+		float IslandTimeMin
+		int32 SpikeIslandTerm
+		float IslandStamina
+		int32 SpikeIslandBalanceCount
+		int32 ScoreFactorIsland
+		int32 PointTerm
+		int32 ScoreFactorPoint
+		int32 ScoreFactorLanding
+		float StaminaRegen
+		float RegenDelay
+	}
+	struct SMultiBalance
+	{
+		float MinSpeed
+		float MaxSpeed
+		float ShotDelay
+		int32 TypeFix
+		int32 CountFix
+		float SpeedFix
+		int32 Right
+		int32 Left
+		int32 Bottom
+		int32 Diagonal
+		int32 FixCount
+		int32 FixOnceCount
+		int32 ScoreFactorWave
+		wstring ItemPattern
+		float TermTimeItem
+		float ShieldTime
+		float StaminaTime
+		int32 ScoreFactorPoint
+		float TermTimePoint
+		float RegenDelay
+	}
+	struct SMultiItem
+	{
+		EMultiItemType ItemType
+		EText Description
+	}
+	struct SMultiItemDodge : SMultiItem
+	{
+		float MultiDodgeTime
+		float MultiDodgeValue
+		int32 MultiDodgeRand
+	}
+	struct SMultiItemIsland : SMultiItem
+	{
+		float MultiIslandTime
+		float MultiIslandValue
+		int32 MultiIslandRand
+	}
+	struct SMultiItemMeta
+	{
+		EMultiItemType ItemType
+		float MultiDodgeTime
+		float MultiDodgeValue
+		int32 MultiDodgeRand
+		float MultiIslandTime
+		float MultiIslandValue
+		int32 MultiIslandRand
+		EText Description
+	}
+	struct SModeEventMeta
+	{
+		EPlayMode Mode
+		int32 BeginHour
+		int32 BeginMin
+		int32 BeginSec
+		int32 EndHour
+		int32 EndMin
+		int32 EndSec
+		EText ETextName
+	}
+}
