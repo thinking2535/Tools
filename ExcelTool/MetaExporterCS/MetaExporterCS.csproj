@@ -121,6 +121,9 @@
     <Reference Include="rso.Physics">
       <HintPath>..\..\..\Server\RsoCS\GameUtil\bin\Debug\rso.Physics.dll</HintPath>
     </Reference>
+    <Reference Include="rso.Unity">
+      <HintPath>..\..\..\Server\RsoCS\Unity\bin\Debug\rso.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

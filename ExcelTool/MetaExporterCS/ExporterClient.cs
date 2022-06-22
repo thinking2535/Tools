@@ -19,6 +19,7 @@ namespace MetaExporterCS
             Enums.Add(default(ERewardType));
             Enums.Add(default(EResource));
             Enums.Add(default(EQuestType));
+            Enums.Add(default(EArrowDodgeItemType));
             Enums.Add(default(ERank));
             Enums.Add(default(ETrackingKey));
             Enums.Add(default(EMultiItemType));
@@ -54,6 +55,10 @@ namespace MetaExporterCS
                 CheckSum ^= MetaFile.Export<SQuestClientMeta>("Quest", DataPath);
                 CheckSum ^= MetaFile.Export<SQuestDailyCompleteMeta>("QuestDailyComplete", DataPath);
 
+                MetaFile.Open("MetaDataXLS/Battle.xlsx");
+                CheckSum ^= MetaFile.Export<SArrowDodgeMeta>("ArrowDodge", DataPath);
+                CheckSum ^= MetaFile.Export<SArrowDodgeItemMeta>("ArrowDodgeItem", DataPath);
+
                 MetaFile.Open("MetaDataXLS/Rank.xlsx");
                 CheckSum ^= MetaFile.Export<SRankTierClientMeta>("RankTier", DataPath);
                 CheckSum ^= MetaFile.Export<SRankRewardMeta>("RankReward", DataPath);
@@ -68,15 +73,7 @@ namespace MetaExporterCS
                 CheckSum ^= MetaFile.Export<SGachaGradeMeta>("GachaGrade", DataPath);
 
                 MetaFile.Open("MetaDataXLS/Single.xlsx");
-                CheckSum ^= MetaFile.Export<SSingleBalance>("Single", DataPath);
                 CheckSum ^= MetaFile.Export<SSingleIslandBalance>("Island", DataPath);
-
-                MetaFile.Open("MetaDataXLS/Multi.xlsx");
-                CheckSum ^= MetaFile.Export<SMultiBalance>("MultiSingle", DataPath);
-                CheckSum ^= MetaFile.Export<SMultiIslandBalance>("MultiIsland", DataPath);
-
-                MetaFile.Open("MetaDataXLS/MultiItem.xlsx");
-                CheckSum ^= MetaFile.Export<SMultiItemMeta>("MultiItem", DataPath);
 
                 MetaFile.Open("MetaDataXLS/EventTime.xlsx");
                 CheckSum ^= MetaFile.Export<SModeEventMeta>("EventTimeModeOpen", DataPath);

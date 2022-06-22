@@ -909,47 +909,6 @@ namespace bb
 		int32 Code
 		SRankRewardViewMeta RankRewardViewMeta
 	}
-	struct SBattleTypeMeta : SBattleType
-	{
-		bool IsServival
-		bool IsSingle
-	}
-	struct SSingleBalance
-	{
-		float MinSpeed
-		float MaxSpeed
-		float ShotDelay
-		int32 TypeFix
-		int32 CountFix
-		float SpeedFix
-		int32 Right
-		int32 Left
-		int32 Bottom
-		int32 Diagonal
-		int32 FixCount
-		int32 FixOnceCount
-		int32 BonusTerm
-		int32 BonusCointStart
-		int32 BonusCoinOnce
-		float BonusCoinSpeed
-		float CoinShotDelay
-		int32 WaveCountGold
-		int32 InitGold
-		int32 AddGold
-		int32 PlayCountMax
-		int32 ChargeCostGold
-		int32 ScoreFactorWave
-		int32 ScoreFactorTime
-		int32 ScoreFactorGold
-		int32 RefreshDurationMinute
-		int32 StageGoldCount
-		int32 StageGoldWave
-		int32 StageGoldCountMax
-		wstring ItemPattern
-		float ShieldTime
-		float StaminaTime
-		int32 GoldBarCount
-	}
 	struct SCheatMeta
 	{
 		wstring Cheat
@@ -1051,65 +1010,6 @@ namespace bb
 		wstring EndTime
 		int32 PackageCode
 	}
-	struct SMultiIslandBalance
-	{
-		float IslandVelocity
-		float InitTermMin
-		float InitTermMax
-		float AddTerm
-		float InitHeight
-		float ExcludeHeight
-		float AddHeight
-		float AddExcludeHeight
-		int32 StaminaTerm
-		float StaminaBonus
-		float StaminaMax
-		float StaminaApple
-		float StaminaMeat
-		float StaminaChicken
-		wstring ItemPattern
-		int32 BalanceCount
-		int32 IslandDownPercent
-		int32 IslandTypeRange
-		int32 WaveCountGold
-		int32 InitGold
-		int32 AddGold
-		float IslandInitTime
-		float IslandAddTime
-		float IslandTimeMin
-		int32 SpikeIslandTerm
-		float IslandStamina
-		int32 SpikeIslandBalanceCount
-		int32 ScoreFactorIsland
-		int32 PointTerm
-		int32 ScoreFactorPoint
-		int32 ScoreFactorLanding
-		float StaminaRegen
-		float RegenDelay
-	}
-	struct SMultiBalance
-	{
-		float MinSpeed
-		float MaxSpeed
-		float ShotDelay
-		int32 TypeFix
-		int32 CountFix
-		float SpeedFix
-		int32 Right
-		int32 Left
-		int32 Bottom
-		int32 Diagonal
-		int32 FixCount
-		int32 FixOnceCount
-		int32 ScoreFactorWave
-		wstring ItemPattern
-		float TermTimeItem
-		float ShieldTime
-		float StaminaTime
-		int32 ScoreFactorPoint
-		float TermTimePoint
-		float RegenDelay
-	}
 	struct SMultiItem
 	{
 		EMultiItemType ItemType
@@ -1126,17 +1026,6 @@ namespace bb
 		float MultiIslandTime
 		float MultiIslandValue
 		int32 MultiIslandRand
-	}
-	struct SMultiItemMeta
-	{
-		EMultiItemType ItemType
-		float MultiDodgeTime
-		float MultiDodgeValue
-		int32 MultiDodgeRand
-		float MultiIslandTime
-		float MultiIslandValue
-		int32 MultiIslandRand
-		EText Description
 	}
 	struct SModeEventMeta
 	{
