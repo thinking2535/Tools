@@ -770,27 +770,276 @@ namespace bb
 		Skin_Name_Dragon
 		Global_Popup_CloseService
 		NickNameAlreadyExists
-		Max
-		Null=-1
-	}
-	enum class EShopType : uint8
-	{
-		Gacha
-		Gold
-		Dia
-		Max
-	}
-	enum class EPlayMode
-	{
-		Solo
-		Team
-		Survival
-		SurvivalSmall
-		TeamSmall
-		IslandSolo
-		DodgeSolo
-		Island=10
-		Dodge
+		OtherPlayerDisconnected
+		InvalidGame
+		InvalidDisconnectNotice
+		TimeLeft
+		Global_Text_Dia00
+		Global_Text_Dia01
+		Global_Text_Dia02
+		Global_Text_Dia03
+		Global_Popup_PlayCountNotEnough
+		Global_Popup_MultiPlayCountNotEnough
+		Global_Popup_MultiPlayCountMax
+		Global_Popup_GoldNotEnough
+		SceneCharacterList_UnLockNFT
+		Global_Grade_Rare_T1
+		Global_Grade_Rare_T2
+		Global_Grade_Rare_T3
+		Global_Grade_Epic_T1
+		Global_Grade_Epic_T2
+		Global_Grade_Epic_T3
+		Global_Grade_Unique_T1
+		Global_Grade_Unique_T2
+		Global_Grade_Unique_T3
+		Character_Name_Kiwibird01
+		Character_Name_Kiwibird02
+		Character_Name_Kiwibird03
+		Character_Name_Kiwibird04
+		Character_Name_Chick01
+		Character_Name_Chick02
+		Character_Name_Chick03
+		Character_Name_Chick04
+		Character_Name_Duckling01
+		Character_Name_Duckling02
+		Character_Name_Duckling03
+		Character_Name_Duckling04
+		Character_Name_ShibaInu01
+		Character_Name_ShibaInu02
+		Character_Name_ShibaInu03
+		Character_Name_ShibaInu04
+		Character_Name_Poodle01
+		Character_Name_Poodle02
+		Character_Name_Poodle03
+		Character_Name_Poodle04
+		Character_Name_Turtle01
+		Character_Name_Turtle02
+		Character_Name_Turtle03
+		Character_Name_Turtle04
+		Character_Name_Panda01
+		Character_Name_Panda02
+		Character_Name_Panda03
+		Character_Name_Panda04
+		Character_Name_Polarbear01
+		Character_Name_Polarbear02
+		Character_Name_Polarbear03
+		Character_Name_Polarbear04
+		Character_Name_Brownbear01
+		Character_Name_Brownbear02
+		Character_Name_Brownbear03
+		Character_Name_Brownbear04
+		Character_Name_Gorilla01
+		Character_Name_Gorilla02
+		Character_Name_Gorilla03
+		Character_Name_Gorilla04
+		Character_Name_YeTigorilla01
+		Character_Name_YeTigorilla02
+		Character_Name_YeTigorilla03
+		Character_Name_YeTigorilla04
+		Character_Name_Greenfrog01
+		Character_Name_Greenfrog02
+		Character_Name_Greenfrog03
+		Character_Name_Greenfrog04
+		Character_Name_Hen01
+		Character_Name_Hen02
+		Character_Name_Hen03
+		Character_Name_Hen04
+		Character_Name_Rooster01
+		Character_Name_Rooster02
+		Character_Name_Rooster03
+		Character_Name_Rooster04
+		Character_Name_Crowtit01
+		Character_Name_Crowtit02
+		Character_Name_Crowtit03
+		Character_Name_Crowtit04
+		Character_Name_Hummingbird01
+		Character_Name_Hummingbird02
+		Character_Name_Hummingbird03
+		Character_Name_Hummingbird04
+		Character_Name_Gull01
+		Character_Name_Gull02
+		Character_Name_Gull03
+		Character_Name_Gull04
+		Character_Name_Macaw01
+		Character_Name_Macaw02
+		Character_Name_Macaw03
+		Character_Name_Macaw04
+		Character_Name_Woodpecker01
+		Character_Name_Woodpecker02
+		Character_Name_Woodpecker03
+		Character_Name_Woodpecker04
+		Character_Name_BigbilledBird01
+		Character_Name_BigbilledBird02
+		Character_Name_BigbilledBird03
+		Character_Name_BigbilledBird04
+		Character_Name_Eagle01
+		Character_Name_Eagle02
+		Character_Name_Eagle03
+		Character_Name_Eagle04
+		Character_Name_Owl01
+		Character_Name_Owl02
+		Character_Name_Owl03
+		Character_Name_Owl04
+		Character_Name_Trex01
+		Character_Name_Trex02
+		Character_Name_Trex03
+		Character_Name_Trex04
+		Character_Name_Crocodile01
+		Character_Name_Crocodile02
+		Character_Name_Crocodile03
+		Character_Name_Crocodile04
+		Character_Name_Tamerabbit01
+		Character_Name_Tamerabbit02
+		Character_Name_Tamerabbit03
+		Character_Name_Tamerabbit04
+		Character_Name_Hare01
+		Character_Name_Hare02
+		Character_Name_Hare03
+		Character_Name_Hare04
+		Character_Name_Deer01
+		Character_Name_Deer02
+		Character_Name_Deer03
+		Character_Name_Deer04
+		Character_Name_Reindeer01
+		Character_Name_Reindeer02
+		Character_Name_Reindeer03
+		Character_Name_Reindeer04
+		Character_Name_Milkcow01
+		Character_Name_Milkcow02
+		Character_Name_Milkcow03
+		Character_Name_Milkcow04
+		Character_Name_Bull01
+		Character_Name_Bull02
+		Character_Name_Bull03
+		Character_Name_Bull04
+		Character_Name_Horse01
+		Character_Name_Horse02
+		Character_Name_Horse03
+		Character_Name_Horse04
+		Character_Name_Zebra01
+		Character_Name_Zebra02
+		Character_Name_Zebra03
+		Character_Name_Zebra04
+		Character_Name_Fox01
+		Character_Name_Fox02
+		Character_Name_Fox03
+		Character_Name_Fox04
+		Character_Name_Cat01
+		Character_Name_Cat02
+		Character_Name_Cat03
+		Character_Name_Cat04
+		Character_Name_Tiger01
+		Character_Name_Tiger02
+		Character_Name_Tiger03
+		Character_Name_Tiger04
+		Character_Name_Pig01
+		Character_Name_Pig02
+		Character_Name_Pig03
+		Character_Name_Pig04
+		Character_Name_Elephant01
+		Character_Name_Elephant02
+		Character_Name_Elephant03
+		Character_Name_Elephant04
+		Character_Name_Werewolf01
+		Character_Name_Werewolf02
+		Character_Name_Werewolf03
+		Character_Name_Werewolf04
+		Character_Name_Mummy01
+		Character_Name_Mummy02
+		Character_Name_Mummy03
+		Character_Name_Mummy04
+		Character_Name_Ghost01
+		Character_Name_Ghost02
+		Character_Name_Ghost03
+		Character_Name_Ghost04
+		Character_Name_Witch01
+		Character_Name_Witch02
+		Character_Name_Witch03
+		Character_Name_Witch04
+		Character_Name_Jackol01
+		Character_Name_Jackol02
+		Character_Name_Jackol03
+		Character_Name_Jackol04
+		Character_Name_Bat01
+		Character_Name_Bat02
+		Character_Name_Bat03
+		Character_Name_Bat04
+		Character_Name_Santa01
+		Character_Name_Santa02
+		Character_Name_Santa03
+		Character_Name_Santa04
+		Character_Name_Snowman01
+		Character_Name_Snowman02
+		Character_Name_Snowman03
+		Character_Name_Snowman04
+		Character_Name_Raccoon01
+		Character_Name_Raccoon02
+		Character_Name_Raccoon03
+		Character_Name_Raccoon04
+		Character_Name_Penguin01
+		Character_Name_Penguin02
+		Character_Name_Penguin03
+		Character_Name_Penguin04
+		Character_Name_Mouse01
+		Character_Name_Mouse02
+		Character_Name_Mouse03
+		Character_Name_Mouse04
+		Character_Name_Squirrel01
+		Character_Name_Squirrel02
+		Character_Name_Squirrel03
+		Character_Name_Squirrel04
+		Character_Name_Hippo01
+		Character_Name_Hippo02
+		Character_Name_Hippo03
+		Character_Name_Hippo04
+		Character_Name_Walrus01
+		Character_Name_Walrus02
+		Character_Name_Walrus03
+		Character_Name_Walrus04
+		Character_Name_Killerbee01
+		Character_Name_Killerbee02
+		Character_Name_Killerbee03
+		Character_Name_Killerbee04
+		Character_Name_Bee01
+		Character_Name_Bee02
+		Character_Name_Bee03
+		Character_Name_Bee04
+		Character_Name_Beetle01
+		Character_Name_Beetle02
+		Character_Name_Beetle03
+		Character_Name_Beetle04
+		Character_Name_Mantis01
+		Character_Name_Mantis02
+		Character_Name_Mantis03
+		Character_Name_Mantis04
+		Character_Name_Ladybugs01
+		Character_Name_Ladybugs02
+		Character_Name_Ladybugs03
+		Character_Name_Ladybugs04
+		Character_Name_Stagbeetle01
+		Character_Name_Stagbeetle02
+		Character_Name_Stagbeetle03
+		Character_Name_Stagbeetle04
+		Character_Name_Fairy01
+		Character_Name_Fairy02
+		Character_Name_Fairy03
+		Character_Name_Fairy04
+		Character_Name_Knight01
+		Character_Name_Knight02
+		Character_Name_Knight03
+		Character_Name_Knight04
+		Character_Name_Wizard01
+		Character_Name_Wizard02
+		Character_Name_Wizard03
+		Character_Name_Wizard04
+		Character_Name_Princess01
+		Character_Name_Princess02
+		Character_Name_Princess03
+		Character_Name_Princess04
+		Character_Name_Dragon01
+		Character_Name_Dragon02
+		Character_Name_Dragon03
+		Character_Name_Dragon04
 		Max
 		Null=-1
 	}
@@ -858,30 +1107,17 @@ namespace bb
 		bool IsPad
 		bool IsTutorial
 		ELanguage Language
-		EPlayMode SelectMode
 	}
 	struct SQuestClientMeta : SQuestMeta
 	{
 		EText ETextName
 		wstring IconName
 	}
-	struct SShopMeta
+	struct SShopClientMeta : SShopMeta
 	{
 		EText ETextName
 		wstring TextureName
-	}
-	struct SShopInGameMeta : SShopMeta
-	{
-		int32 Code
-		EResource CostType
-		int32 CostValue
-		int32 RewardCode
 		ETrackingKey AnalyticsKey
-	}
-	struct SShopIAPMeta : SShopMeta
-	{
-		wstring Pid
-		int32 DiaCount
 	}
 	struct SGachaClientMeta : SGachaMeta
 	{
@@ -898,21 +1134,15 @@ namespace bb
 		float RankColorG
 		float RankColorB
 	}
-	struct SRankRewardViewMeta
+	struct SRewardClientMeta
 	{
 		wstring TextureName
-		EText ETextName
-		int32 Count
+		EText TextName
 	}
-	struct SRankRewardViewPackMeta
+	struct SCodeRewardClientMeta
 	{
 		int32 Code
-		SRankRewardViewMeta RankRewardViewMeta
-	}
-	struct SCheatMeta
-	{
-		wstring Cheat
-		wstring CheatCommand
+		SRewardClientMeta RewardClientMeta
 	}
 	struct STrackingMetaParam
 	{
@@ -928,44 +1158,6 @@ namespace bb
 	struct SGachaRewardClientMeta : SGachaRewardMeta
 	{
 		bool Event
-	}
-	struct SSingleIslandBalance
-	{
-		float IslandVelocity
-		float InitTermMin
-		float InitTermMax
-		float AddTerm
-		float InitHeight
-		float ExcludeHeight
-		float AddHeight
-		float AddExcludeHeight
-		int32 StaminaTerm
-		int32 CoinTerm
-		int32 GoldBarTerm
-		int32 GoldBarCount
-		float StaminaBonus
-		float StaminaMax
-		float StaminaApple
-		float StaminaMeat
-		float StaminaChicken
-		int32 BalanceCount
-		int32 IslandDownPercent
-		int32 IslandTypeRange
-		int32 WaveCountGold
-		int32 InitGold
-		int32 AddGold
-		float IslandInitTime
-		float IslandAddTime
-		float IslandTimeMin
-		int32 SpikeIslandTerm
-		float IslandStamina
-		int32 SpikeIslandBalanceCount
-		int32 ScoreFactorIsland
-		int32 ScoreFactorGold
-		int32 ChargeCostGold
-		int32 PlayCountMax
-		int32 RefreshDurationMinute
-		wstring ItemPattern
 	}
 	struct SSingleCharacterMove
 	{
@@ -1026,16 +1218,5 @@ namespace bb
 		float MultiIslandTime
 		float MultiIslandValue
 		int32 MultiIslandRand
-	}
-	struct SModeEventMeta
-	{
-		EPlayMode Mode
-		int32 BeginHour
-		int32 BeginMin
-		int32 BeginSec
-		int32 EndHour
-		int32 EndMin
-		int32 EndSec
-		EText ETextName
 	}
 }

@@ -19,13 +19,18 @@ namespace bb
 	typedef int8 TTeamCnt
 	typedef uint8 TQuestSlotIndex
 
-	const TVer c_Ver_Main 38
+	const TVer c_Ver_Main 41
 
 	const int32 c_FPS 60
 	const int64 c_NetworkTickSync 500000
 	const int64 c_NetworkTickBuffer c_NetworkTickSync+500000
 	const float c_ContactOffset 0.0001f
 	const float c_LandXDragPerFrame 1.0f/c_FPS
+
+	const float c_ScreenWidth 3.448f
+	const float c_ScreenHeight 1.8f
+	const float c_ScreenWidth_2 c_ScreenWidth*0.5f
+	const float c_ScreenHeight_2 c_ScreenHeight*0.5f
 
 	const float c_MaxVelDeadY 1.13784f
 	const float c_Gravity -0.6465f
@@ -39,6 +44,7 @@ namespace bb
 	const float c_GroundResistance 0.1f
 
 	const float c_PlayerWidth 0.1258713f
+	const float c_PlayerWidth_2 c_PlayerWidth*0.5f
 	const float c_PlayerHeight 0.150337f
 	const float c_PlayerOffsetY c_PlayerHeight*0.5f
 	const float c_BalloonWidth 0.2f
@@ -73,11 +79,8 @@ namespace bb
 		Buy
 		BuyChar
 		BuyPackage
-		Purchase
 		DailyReward
 		SelectChar
-		IslandStart
-		IslandEnd
 
 		BattleTouch
 		BattlePush
@@ -88,6 +91,8 @@ namespace bb
 
 		ArrowDodgeBattleJoin
 		ArrowDodgeBattleEnd
+		FlyAwayBattleJoin
+		FlyAwayBattleEnd
 
 		Gacha
 		GachaX10
@@ -118,11 +123,8 @@ namespace bb
 		Buy
 		BuyChar
 		BuyPackage
-		Purchase
 		DailyReward
 		DailyRewardFail
-		IslandStart
-		IslandEnd
 
 		BattleSync
 		BattleTouch
@@ -131,21 +133,28 @@ namespace bb
 		MultiBattleJoin
 		MultiBattleOut
 		MultiBattleBegin
-		MultiBattleMatching
 		MultiBattleStart
 		MultiBattleEnd
+		MultiBattleEndDraw
+		MultiBattleEndInvalid
 		MultiBattleIcon
 		MultiBattleLink
 		MultiBattleUnLink
+		InvalidDisconnectInfo
 
 		ArrowDodgeBattleJoin
 		ArrowDodgeBattleBegin
 		ArrowDodgeBattleStart
 		ArrowDodgeBattleEnd
+		FlyAwayBattleJoin
+		FlyAwayBattleBegin
+		FlyAwayBattleStart
+		FlyAwayBattleEnd
 
 		Gacha
 		GachaX10
 		GachaFailed
+		RankReward
 		QuestGot
 		QuestDone
 		QuestReward
@@ -230,6 +239,21 @@ namespace bb
 		Max
 	}
 
+	struct SRankingUser
+	{
+		TUID UID
+		u16string Nick
+		int32 CharCode
+		wstring CountryCode
+		int32 Point
+	}
+	typedef list<SRankingUser> TRankingUsers
+	struct SRankingUsers
+	{
+		TRankingUsers RankingUsers
+	}
+
+	typedef map<TUID,int32> TRankingRewards
 	enum class ERankingType
 	{
 		Multi
@@ -238,6 +262,11 @@ namespace bb
 		Max
 		Null
 	}
+	typedef array<int32,3> TRankingArray
+	typedef array<int32,3> TRankingPointArray
+	typedef array<int32,3> TRankingRewardArray
+	typedef array<TRankingRewards,3> TRankingRewardsArray
+	typedef array<SRankingUsers,3> TRankingUsersArray
 
 	struct SUserLoginOption
 	{
@@ -252,56 +281,34 @@ namespace bb
 	{
 		Ticket
 		Gold
-		Dia
-		CP
-		DiaPaid
+		Dia00
+		Dia01
+		Dia02
+		Dia03
 		Max
 		Null
 	}
 
 	typedef int32 TResource
-	typedef array<TResource,5> TResources
+	typedef array<TResource,6> TResources
 
-	enum class ERewardType : uint8
-	{
-		Resource_Ticket
-		Resource_Gold
-		Resource_Dia
-		Resource_CP
-		Character
-		Max
-	}
 	enum class EQuestType
 	{
-		TeamPlay
-		TeamVictory
-		SurvivalPlay
-		SurvivalVictory
-		IngameConsecutiveKill
 		IngameBalloonPopping
 		IngameKill
-		IngameBestPlayer
-		GachaRuby
 		BlowBalloon
 		PlayNormal
 		PlayRare
 		PlayEpic
 		PlaySingle
 		SingleTime
-		SinglePlayGoldGet
 		SinglePlayScoreGet
 		PlayIsland
 		IslandCount
-		IslandGoldGet
 		IslandScoreGet
-		SurvivalPlayRanking
 		RankPointGet
 		SoloPlay
 		SoloVictory
-		Survival3PPlay
-		Survival3PVictory
-		MultiSinglePlay
-		MultiIslandPlay
 		Max
 		Null=-1
 	}
@@ -340,6 +347,13 @@ namespace bb
 		time_point DailyRewardExpiredTime
 		int32 DailyRewardCountLeft
 	}
+
+	struct SInvalidDisconnectInfo
+	{
+		time_point EndTime
+		time_point MatchBlockEndTime
+		int32 Count
+	}
 	struct SUserBase : SUserCore
 	{
 		TExp Exp
@@ -349,8 +363,6 @@ namespace bb
 		int32 LastGotRewardRankIndex
 		int32 WinCountSolo
 		int32 LoseCountSolo
-		int32 WinCountSurvival
-		int32 LoseCountSurvival
 		int32 WinCountMulti
 		int32 LoseCountMulti
 		int32 BattlePointBest
@@ -363,9 +375,9 @@ namespace bb
 		int32 BlowBalloonTotal
 		int32 QuestDailyCompleteCount
 		bool TutorialReward
-		bool IslandStarted
 		int64 RankingRewardedCounter
 		TNick NewNick
+		SInvalidDisconnectInfo InvalidDisconnectInfo
 	}
 	struct SUserNet : SUserBase
 	{
@@ -443,7 +455,15 @@ namespace bb
 	{
 		int32 Code
 	}
-	struct SBuyNetSc
+
+	struct SRewardDB
+	{
+		TUID UID
+		TResources ResourcesLeft
+		list<int32> CharsAdded
+	}
+
+	struct SBuyNetSc : SRewardDB
 	{
 		int32 Code
 	}
@@ -459,21 +479,12 @@ namespace bb
 	{
 		int32 Code
 	}
-	struct SBuyPackageNetSc
+	struct SBuyPackageNetSc : SRewardDB
 	{
 		int32 Code
+
 	}
 
-	struct SPurchaseNetCs
-	{
-		wstring ProductID
-		wstring PurchaseToken
-	}
-	struct SPurchaseNetSc
-	{
-		wstring ProductID
-		TResource DiaPaidAdded
-	}
 	struct SDailyRewardNetCs
 	{
 		bool IsWatchedAd
@@ -492,28 +503,6 @@ namespace bb
 	struct SSelectCharNetCs
 	{
 		int32 Code
-	}
-
-	struct SIslandStartNetCs
-	{
-	}
-	struct SIslandStartNetSc
-	{
-		TResource GoldCost
-		int32 PlayCount
-		time_point RefreshTime
-		TDoneQuests DoneQuests
-	}
-	struct SIslandEndNetCs
-	{
-		int32 PassedIslandCount
-		TResource Gold
-		TResource GoldAdded
-		TResource DiaAdded
-	}
-	struct SIslandEndNetSc
-	{
-		TDoneQuests DoneQuests
 	}
 
 	struct SBattleType
@@ -619,20 +608,17 @@ namespace bb
 	struct SMultiBattleBeginNetSc : SBattle
 	{
 		vector<SBattlePlayer> Players
+		map<int32,time_point> DisconnectEndTimes
 		vector<SMultiBattleInfo> BattleInfos
 		SBattleRecord Record
 		vector<SCharacterNet> Characters
-		time_point EndTime
+		int64 EndTick
 		int64 Tick
 		vector<SStructMovePosition> StructMovePositions
 	}
-	struct SMultiBattleMatchingNetSc
-	{
-		int32 UserCount
-	}
 	struct SMultiBattleStartNetSc
 	{
-		time_point EndTime
+		int64 EndTick
 	}
 	struct SBattleEndPlayer
 	{
@@ -640,10 +626,35 @@ namespace bb
 		int32 AddedGold
 		int32 BattlePoint
 	}
-	struct SMultiBattleEndNetSc
+
+	struct STeamBattleInfo
 	{
+		int32 Ranking
+		int32 Point
+	}
+	typedef list<TTeamCnt> TTeamIndexGroup
+	struct STeamRanking : STeamBattleInfo
+	{
+		TTeamIndexGroup TeamIndexGroup
+	}
+	struct SMultiBattleEndNet
+	{
+		SInvalidDisconnectInfo InvalidDisconnectInfo
+	}
+	struct SMultiBattleEndNetSc : SMultiBattleEndNet
+	{
+		TResources ResourcesLeft
 		vector<SBattleEndPlayer> BattleEndPlayers
+		vector<STeamRanking> OrderedTeamRankings
 		TDoneQuests DoneQuests
+	}
+	struct SMultiBattleEndDrawNetSc : SMultiBattleEndNet
+	{
+		TResources ResourcesLeft
+		TDoneQuests DoneQuests
+	}
+	struct SMultiBattleEndInvalidNetSc : SMultiBattleEndNet
+	{
 	}
 	struct SMultiBattleIconNetCs
 	{
@@ -663,6 +674,11 @@ namespace bb
 	{
 		int64 Tick
 		int32 PlayerIndex
+		time_point DisconnectEndTime
+	}
+
+	struct SInvalidDisconnectInfoNetSc : SInvalidDisconnectInfo
+	{
 	}
 
 	struct SArrowDodgeBattleJoinNetCs
@@ -677,13 +693,24 @@ namespace bb
 	}
 	struct SArrow
 	{
-		STransform Transform
+		SPoint LocalPosition
 		SPoint Velocity
 	}
-	struct SItem
+
+	enum class EArrowDodgeItemType
 	{
-		STransform Transform
-		int32 ItemNumber
+		Coin
+		GoldBar
+		Shield
+		Stamina
+		Max
+		Null
+	}
+
+	struct SArrowDodgeItem
+	{
+		SPoint LocalPosition
+		EArrowDodgeItemType ItemType
 	}
 	struct SArrowDodgeBattleInfo
 	{
@@ -708,13 +735,13 @@ namespace bb
 		SArrowDodgeBattleBufs Bufs
 		SCharacterNet Character
 		int64 Tick
-		uint64 RandomSeed
+		uint32 RandomSeed
 		int64 NextDownArrowTick
 		int64 NextLeftArrowTick
 		int64 NextRightArrowTick
 		int64 NextItemTick
 		vector<SArrow> Arrows
-		vector<SItem> Items
+		vector<SArrowDodgeItem> Items
 		bool Started
 	}
 	struct SArrowDodgeBattleStartNetSc
@@ -729,28 +756,84 @@ namespace bb
 		TResources ResourcesLeft
 		TDoneQuests DoneQuests
 	}
-	struct SRankingUser
+
+	struct SFlyAwayBattleJoinNetCs
 	{
-		TUID UID
-		u16string Nick
-		int32 CharCode
-		wstring CountryCode
-		int32 Point
+	}
+	struct SFlyAwayBattleJoinNetSc
+	{
+		TResource GoldCost
+		int32 PlayCount
+		time_point RefreshTime
+		TDoneQuests DoneQuests
+	}
+	enum class EFlyAwayLandState
+	{
+		Normal
+		Shaking
+		Falling
+	}
+	struct SFlyAwayLand
+	{
+		SPoint LocalPosition
+		int32 Number
+		int32 Index
+		EFlyAwayLandState State
+		int64 NextActionTick
 	}
 
-	typedef list<SRankingUser> TRankingUsers
+	enum class EFlyAwayItemType
+	{
+		Coin
+		GoldBar
+		Apple
+		Meat
+		Chicken
+		Max
+		Null
+	}
+
+	struct SFlyAwayItem
+	{
+		SPoint LocalPosition
+		EFlyAwayItemType ItemType
+	}
+	struct SFlyAwayBattleInfo
+	{
+		int32 Point
+		int32 PassedCount
+		int32 PerfectCombo
+		TResource Gold
+	}
+	struct SFlyAwayBattleBeginNetSc
+	{
+		SBattlePlayer Player
+		SFlyAwayBattleInfo BattleInfo
+		SCharacterNet Character
+		int64 Tick
+		uint32 RandomSeed
+		int32 LandCounter
+		SPoint LastLandPosition
+		vector<SFlyAwayLand> Lands
+		vector<SFlyAwayItem> Items
+		bool Started
+	}
+	struct SFlyAwayBattleStartNetSc
+	{
+	}
+	struct SFlyAwayBattleEndNetCs
+	{
+	}
+	struct SFlyAwayBattleEndNetSc
+	{
+		int64 Tick
+		TResources ResourcesLeft
+		TDoneQuests DoneQuests
+	}
 
 	struct SRanking
 	{
-		TRankingUsers RankingUsers
-		TRankingUsers RankingUserSingles
-		TRankingUsers RankingUserIslands
-	}
-	struct SRankingUserPointMin
-	{
-		int32 UserPointMin
-		int32 UserPointMinSingle
-		int32 UserPointMinIsland
+		TRankingUsersArray RankingUsersArray
 	}
 
 	enum class EProtoRankingNetCs
@@ -792,6 +875,10 @@ namespace bb
 	struct SRankRewardNetCs
 	{
 	}
+	struct SRankRewardNetSc : SRewardDB
+	{
+		int32 LastGotRewardRankIndex
+	}
 	struct SQuestSlotIndexCode
 	{
 		TQuestSlotIndex SlotIndex
@@ -811,7 +898,7 @@ namespace bb
 	{
 		TQuestSlotIndex SlotIndex
 	}
-	struct SQuestRewardNetSc
+	struct SQuestRewardNetSc : SRewardDB
 	{
 		TQuestSlotIndex SlotIndex
 		time_point CoolEndTime
@@ -829,11 +916,9 @@ namespace bb
 	}
 	struct SQuestDailyCompleteRewardNetCs
 	{
-		bool WatchAd
 	}
-	struct SQuestDailyCompleteRewardNetSc
+	struct SQuestDailyCompleteRewardNetSc : SRewardDB
 	{
-		bool WatchAd
 		time_point RefreshTime
 	}
 
@@ -864,14 +949,9 @@ namespace bb
 	{
 		wstring Key
 	}
-	struct SRewardDB
-	{
-		TUID UID
-		TResources ResourcesLeft
-		list<int32> CharsAdded
-	}
 	struct SCouponUseNetSc : SRewardDB
 	{
+		TResources ResourcesAdded
 	}
 	struct SCouponUseFailNetSc
 	{
@@ -882,26 +962,21 @@ namespace bb
 	{
 	}
 
-	typedef map<TUID,int32> TRankingRewards
 	struct SRankingRewardInfoNetCs
 	{
 	}
 	struct SRankingRewardInfoNetSc
 	{
 		int64 Counter
-		int32 Ranking
-		int32 RankingSingle
-		int32 RankingIsland
+		TRankingArray RankingArray
 	}
 	struct SRankingRewardNetCs
 	{
 	}
-	struct SRankingRewardNetSc
+	struct SRankingRewardNetSc : SRewardDB
 	{
 		int64 Counter
-		int32 RewardCode
-		int32 RewardCodeSingle
-		int32 RewardCodeIsland
+		TRankingRewardArray RankingRewardArray
 	}
 	struct SRankingRewardFailNetSc
 	{

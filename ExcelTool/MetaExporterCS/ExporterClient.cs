@@ -16,14 +16,13 @@ namespace MetaExporterCS
             Enums.Add(default(EText));
             Enums.Add(default(EGameRet));
             Enums.Add(default(EGrade));
-            Enums.Add(default(ERewardType));
             Enums.Add(default(EResource));
             Enums.Add(default(EQuestType));
             Enums.Add(default(EArrowDodgeItemType));
+            Enums.Add(default(EFlyAwayItemType));
             Enums.Add(default(ERank));
             Enums.Add(default(ETrackingKey));
             Enums.Add(default(EMultiItemType));
-            Enums.Add(default(EPlayMode));
             Enums.Add(default(EStatusType));
 
             using (var MetaFile = new CExcel(Enums, "bytes", 0))
@@ -46,8 +45,7 @@ namespace MetaExporterCS
 
                 MetaFile.Open("MetaDataXLS/Shop.xlsx");
                 CheckSum ^= MetaFile.Export<SShopConfigServerMeta>("ShopConfig", DataPath);
-                CheckSum ^= MetaFile.Export<SShopInGameMeta>("Shop", DataPath);
-                CheckSum ^= MetaFile.Export<SShopIAPMeta>("ShopCash", DataPath);
+                CheckSum ^= MetaFile.Export<SShopClientMeta>("Shop", DataPath);
                 CheckSum ^= MetaFile.Export<SShopPackageClientMeta>("ShopPackage", DataPath);
                 CheckSum ^= MetaFile.Export<SShopPackageDateMeta>("ShopPackageDate", DataPath);
 
@@ -58,28 +56,21 @@ namespace MetaExporterCS
                 MetaFile.Open("MetaDataXLS/Battle.xlsx");
                 CheckSum ^= MetaFile.Export<SArrowDodgeMeta>("ArrowDodge", DataPath);
                 CheckSum ^= MetaFile.Export<SArrowDodgeItemMeta>("ArrowDodgeItem", DataPath);
+                CheckSum ^= MetaFile.Export<SFlyAwayMeta>("FlyAway", DataPath);
+                CheckSum ^= MetaFile.Export<SFlyAwayItemMeta>("FlyAwayItem", DataPath);
 
                 MetaFile.Open("MetaDataXLS/Rank.xlsx");
                 CheckSum ^= MetaFile.Export<SRankTierClientMeta>("RankTier", DataPath);
                 CheckSum ^= MetaFile.Export<SRankRewardMeta>("RankReward", DataPath);
-                CheckSum ^= MetaFile.Export<SRankRewardViewPackMeta>("RankRewardView", DataPath);
 
                 MetaFile.Open("MetaDataXLS/Reward.xlsx");
-                CheckSum ^= MetaFile.Export<SKeyRewardMeta>("Reward", DataPath);
+                CheckSum ^= MetaFile.Export<SCodeRewardClientMeta>("Reward", DataPath);
+                CheckSum ^= MetaFile.Export<SCodeRewardItemMeta>("RewardItem", DataPath);
 
                 MetaFile.Open("MetaDataXLS/Gacha.xlsx");
                 CheckSum ^= MetaFile.Export<SGachaClientMeta>("Gacha", DataPath);
                 CheckSum ^= MetaFile.Export<SGachaRewardClientMeta>("GachaReward", DataPath);
                 CheckSum ^= MetaFile.Export<SGachaGradeMeta>("GachaGrade", DataPath);
-
-                MetaFile.Open("MetaDataXLS/Single.xlsx");
-                CheckSum ^= MetaFile.Export<SSingleIslandBalance>("Island", DataPath);
-
-                MetaFile.Open("MetaDataXLS/EventTime.xlsx");
-                CheckSum ^= MetaFile.Export<SModeEventMeta>("EventTimeModeOpen", DataPath);
-
-                MetaFile.Open("MetaDataXLS/Cheat.xlsx");
-                CheckSum ^= MetaFile.Export<SCheatMeta>("Cheat", DataPath);
 
                 MetaFile.Open("MetaDataXLS/Tracking.xlsx");
                 CheckSum ^= MetaFile.Export<STrackingMeta>("Tracking", DataPath);

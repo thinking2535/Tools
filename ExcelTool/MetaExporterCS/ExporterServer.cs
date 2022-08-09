@@ -14,10 +14,10 @@ namespace MetaExporterCS
             Enums.Add(default(ECashItemType));
             Enums.Add(default(EResource));
             Enums.Add(default(EGrade));
-            Enums.Add(default(ERewardType));
             Enums.Add(default(ERank));
             Enums.Add(default(EQuestType));
             Enums.Add(default(EArrowDodgeItemType));
+            Enums.Add(default(EFlyAwayItemType));
 
             using (var MetaFile = new CExcel(Enums, "bin", 0))
             {
@@ -29,9 +29,6 @@ namespace MetaExporterCS
                 MetaFile.Open("MetaDataXLS/Config.xlsx");
                 MetaFile.Export<SConfigMeta>("Config", DataPath);
 
-                MetaFile.Open("MetaDataXLS/Single.xlsx");
-                MetaFile.Export<SIslandMeta>("Island", DataPath);
-
                 MetaFile.Open("MetaDataXLS/ForbiddenWord.xlsx");
                 MetaFile.Export<SForbiddenWordMeta>("ForbiddenWord", DataPath);
 
@@ -40,14 +37,13 @@ namespace MetaExporterCS
                 MetaFile.Export<SCharacterGradeMeta>("CharacterGrade", DataPath);
 
                 MetaFile.Open("MetaDataXLS/Reward.xlsx");
-                MetaFile.Export<SKeyRewardMeta>("Reward", DataPath);
+                MetaFile.Export<SCodeRewardItemMeta>("RewardItem", DataPath);
 
                 MetaFile.Open("MetaDataXLS/Shop.xlsx");
                 MetaFile.Export<SShopConfigServerMeta>("ShopConfig", DataPath);
-                MetaFile.Export<SShopServerMeta>("Shop", DataPath);
+                MetaFile.Export<SShopMeta>("Shop", DataPath);
                 MetaFile.Export<SShopPackageServerMeta>("ShopPackage", DataPath);
                 MetaFile.Export<SShopDailyRewardServerMeta>("ShopDailyReward", DataPath);
-                MetaFile.Export<SShopCashServerMeta>("ShopCash", DataPath);
 
                 MetaFile.Open("MetaDataXLS/Rank.xlsx");
                 MetaFile.Export<SRankMeta>("Rank", DataPath);
@@ -65,8 +61,12 @@ namespace MetaExporterCS
 
                 MetaFile.Open("MetaDataXLS/Battle.xlsx");
                 MetaFile.Export<SBattleRewardMeta>("BattleReward", DataPath);
+                MetaFile.Export<SMultiMeta>("Multi", DataPath);
+                MetaFile.Export<SMultiMatchDeniedDurationMeta>("MultiMatchDeniedDuration", DataPath);
                 MetaFile.Export<SArrowDodgeMeta>("ArrowDodge", DataPath);
                 MetaFile.Export<SArrowDodgeItemMeta>("ArrowDodgeItem", DataPath);
+                MetaFile.Export<SFlyAwayMeta>("FlyAway", DataPath);
+                MetaFile.Export<SFlyAwayItemMeta>("FlyAwayItem", DataPath);
 
                 MetaFile.Open("MetaDataXLS/Coupon.xlsx");
                 MetaFile.Export<SCouponMeta>("Coupon", DataPath);
