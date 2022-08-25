@@ -24,6 +24,7 @@ namespace MetaExporterCS
             Enums.Add(default(ETrackingKey));
             Enums.Add(default(EMultiItemType));
             Enums.Add(default(EStatusType));
+            Enums.Add(default(ELanguage));
 
             using (var MetaFile = new CExcel(Enums, "bytes", 0))
             {
@@ -48,9 +49,11 @@ namespace MetaExporterCS
                 CheckSum ^= MetaFile.Export<SShopClientMeta>("Shop", DataPath);
                 CheckSum ^= MetaFile.Export<SShopPackageClientMeta>("ShopPackage", DataPath);
                 CheckSum ^= MetaFile.Export<SShopPackageDateMeta>("ShopPackageDate", DataPath);
+                CheckSum ^= MetaFile.Export<ShopExchangeMeta>("ShopExchange", DataPath);
 
                 MetaFile.Open("MetaDataXLS/Quest.xlsx");
-                CheckSum ^= MetaFile.Export<SQuestClientMeta>("Quest", DataPath);
+                CheckSum ^= MetaFile.Export<QuestTypeKeyValueMeta>("QuestType", DataPath);
+                CheckSum ^= MetaFile.Export<SQuestMeta>("Quest", DataPath);
                 CheckSum ^= MetaFile.Export<SQuestDailyCompleteMeta>("QuestDailyComplete", DataPath);
 
                 MetaFile.Open("MetaDataXLS/Battle.xlsx");
@@ -89,6 +92,7 @@ namespace MetaExporterCS
                 language[0] = "TextName";
                 CheckSum ^= MetaFile.Export<STextMeta>("Text", DataPath, language);
                 language[0] = "GameRetName";
+                CheckSum ^= MetaFile.Export<SLanguageTextMeta>("LanguageText", DataPath);
                 CheckSum ^= MetaFile.Export<SGameRetMeta>("GameRet", DataPath, language);
                 CheckSum ^= MetaFile.Export<SServerAlarmMeta>("ServerAlarm", DataPath);
 

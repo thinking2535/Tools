@@ -705,6 +705,116 @@ namespace bb
 				SEnumChecker.GetMemberName(RewardValue, "RewardValue");
 		}
 	}
+	public class ExchangeValue : SProto
+	{
+		public EResource costResourceType = default(EResource);
+		public Double rate = default(Double);
+		public ExchangeValue()
+		{
+		}
+		public ExchangeValue(ExchangeValue Obj_)
+		{
+			costResourceType = Obj_.costResourceType;
+			rate = Obj_.rate;
+		}
+		public ExchangeValue(EResource costResourceType_, Double rate_)
+		{
+			costResourceType = costResourceType_;
+			rate = rate_;
+		}
+		public override void Push(CStream Stream_)
+		{
+			Stream_.Pop(ref costResourceType);
+			Stream_.Pop(ref rate);
+		}
+		public override void Push(JsonDataObject Value_)
+		{
+			Value_.Pop("costResourceType", ref costResourceType);
+			Value_.Pop("rate", ref rate);
+		}
+		public override void Pop(CStream Stream_)
+		{
+			Stream_.Push(costResourceType);
+			Stream_.Push(rate);
+		}
+		public override void Pop(JsonDataObject Value_)
+		{
+			Value_.Push("costResourceType", costResourceType);
+			Value_.Push("rate", rate);
+		}
+		public void Set(ExchangeValue Obj_)
+		{
+			costResourceType = Obj_.costResourceType;
+			rate = Obj_.rate;
+		}
+		public override string StdName()
+		{
+			return 
+				"bb.EResource" + "," + 
+				SEnumChecker.GetStdName(rate);
+		}
+		public override string MemberName()
+		{
+			return 
+				SEnumChecker.GetMemberName(costResourceType, "costResourceType") + "," + 
+				SEnumChecker.GetMemberName(rate, "rate");
+		}
+	}
+	public class ShopExchangeMeta : SProto
+	{
+		public EResource targetResourceType = default(EResource);
+		public ExchangeValue exchangeValue = new ExchangeValue();
+		public ShopExchangeMeta()
+		{
+		}
+		public ShopExchangeMeta(ShopExchangeMeta Obj_)
+		{
+			targetResourceType = Obj_.targetResourceType;
+			exchangeValue = Obj_.exchangeValue;
+		}
+		public ShopExchangeMeta(EResource targetResourceType_, ExchangeValue exchangeValue_)
+		{
+			targetResourceType = targetResourceType_;
+			exchangeValue = exchangeValue_;
+		}
+		public override void Push(CStream Stream_)
+		{
+			Stream_.Pop(ref targetResourceType);
+			Stream_.Pop(ref exchangeValue);
+		}
+		public override void Push(JsonDataObject Value_)
+		{
+			Value_.Pop("targetResourceType", ref targetResourceType);
+			Value_.Pop("exchangeValue", ref exchangeValue);
+		}
+		public override void Pop(CStream Stream_)
+		{
+			Stream_.Push(targetResourceType);
+			Stream_.Push(exchangeValue);
+		}
+		public override void Pop(JsonDataObject Value_)
+		{
+			Value_.Push("targetResourceType", targetResourceType);
+			Value_.Push("exchangeValue", exchangeValue);
+		}
+		public void Set(ShopExchangeMeta Obj_)
+		{
+			targetResourceType = Obj_.targetResourceType;
+			exchangeValue.Set(Obj_.exchangeValue);
+		}
+		public override string StdName()
+		{
+			return 
+				"bb.EResource" + "," + 
+				SEnumChecker.GetStdName(exchangeValue);
+		}
+		public override string MemberName()
+		{
+			return 
+				SEnumChecker.GetMemberName(targetResourceType, "targetResourceType") + "," + 
+				SEnumChecker.GetMemberName(exchangeValue, "exchangeValue");
+		}
+	}
 	public class SCharacterMeta : SProto
 	{
 		public Int32 Code = default(Int32);
@@ -2026,9 +2136,8 @@ namespace bb
 	{
 		public EQuestType QuestType = default(EQuestType);
 		public Int32 Code = default(Int32);
-		public Int32 RequirmentCount = default(Int32);
-		public String Param = string.Empty;
-		public String Operator = string.Empty;
+		public Int32 unitCompleteCount = default(Int32);
+		public Int32 completeCount = default(Int32);
 		public Int32 RewardCode = default(Int32);
 		public SQuestMeta()
 		{
@@ -2037,63 +2146,56 @@ namespace bb
 		{
 			QuestType = Obj_.QuestType;
 			Code = Obj_.Code;
-			RequirmentCount = Obj_.RequirmentCount;
-			Param = Obj_.Param;
-			Operator = Obj_.Operator;
+			unitCompleteCount = Obj_.unitCompleteCount;
+			completeCount = Obj_.completeCount;
 			RewardCode = Obj_.RewardCode;
 		}
-		public SQuestMeta(EQuestType QuestType_, Int32 Code_, Int32 RequirmentCount_, String Param_, String Operator_, Int32 RewardCode_)
+		public SQuestMeta(EQuestType QuestType_, Int32 Code_, Int32 unitCompleteCount_, Int32 completeCount_, Int32 RewardCode_)
 		{
 			QuestType = QuestType_;
 			Code = Code_;
-			RequirmentCount = RequirmentCount_;
-			Param = Param_;
-			Operator = Operator_;
+			unitCompleteCount = unitCompleteCount_;
+			completeCount = completeCount_;
 			RewardCode = RewardCode_;
 		}
 		public override void Push(CStream Stream_)
 		{
 			Stream_.Pop(ref QuestType);
 			Stream_.Pop(ref Code);
-			Stream_.Pop(ref RequirmentCount);
-			Stream_.Pop(ref Param);
-			Stream_.Pop(ref Operator);
+			Stream_.Pop(ref unitCompleteCount);
+			Stream_.Pop(ref completeCount);
 			Stream_.Pop(ref RewardCode);
 		}
 		public override void Push(JsonDataObject Value_)
 		{
 			Value_.Pop("QuestType", ref QuestType);
 			Value_.Pop("Code", ref Code);
-			Value_.Pop("RequirmentCount", ref RequirmentCount);
-			Value_.Pop("Param", ref Param);
-			Value_.Pop("Operator", ref Operator);
+			Value_.Pop("unitCompleteCount", ref unitCompleteCount);
+			Value_.Pop("completeCount", ref completeCount);
 			Value_.Pop("RewardCode", ref RewardCode);
 		}
 		public override void Pop(CStream Stream_)
 		{
 			Stream_.Push(QuestType);
 			Stream_.Push(Code);
-			Stream_.Push(RequirmentCount);
-			Stream_.Push(Param);
-			Stream_.Push(Operator);
+			Stream_.Push(unitCompleteCount);
+			Stream_.Push(completeCount);
 			Stream_.Push(RewardCode);
 		}
 		public override void Pop(JsonDataObject Value_)
 		{
 			Value_.Push("QuestType", QuestType);
 			Value_.Push("Code", Code);
-			Value_.Push("RequirmentCount", RequirmentCount);
-			Value_.Push("Param", Param);
-			Value_.Push("Operator", Operator);
+			Value_.Push("unitCompleteCount", unitCompleteCount);
+			Value_.Push("completeCount", completeCount);
 			Value_.Push("RewardCode", RewardCode);
 		}
 		public void Set(SQuestMeta Obj_)
 		{
 			QuestType = Obj_.QuestType;
 			Code = Obj_.Code;
-			RequirmentCount = Obj_.RequirmentCount;
-			Param = Obj_.Param;
-			Operator = Obj_.Operator;
+			unitCompleteCount = Obj_.unitCompleteCount;
+			completeCount = Obj_.completeCount;
 			RewardCode = Obj_.RewardCode;
 		}
 		public override string StdName()
@@ -2101,9 +2203,8 @@ namespace bb
 			return 
 				"bb.EQuestType" + "," + 
 				SEnumChecker.GetStdName(Code) + "," + 
-				SEnumChecker.GetStdName(RequirmentCount) + "," + 
-				SEnumChecker.GetStdName(Param) + "," + 
-				SEnumChecker.GetStdName(Operator) + "," + 
+				SEnumChecker.GetStdName(unitCompleteCount) + "," + 
+				SEnumChecker.GetStdName(completeCount) + "," + 
 				SEnumChecker.GetStdName(RewardCode);
 		}
 		public override string MemberName()
@@ -2111,15 +2212,14 @@ namespace bb
 			return 
 				SEnumChecker.GetMemberName(QuestType, "QuestType") + "," + 
 				SEnumChecker.GetMemberName(Code, "Code") + "," + 
-				SEnumChecker.GetMemberName(RequirmentCount, "RequirmentCount") + "," + 
-				SEnumChecker.GetMemberName(Param, "Param") + "," + 
-				SEnumChecker.GetMemberName(Operator, "Operator") + "," + 
+				SEnumChecker.GetMemberName(unitCompleteCount, "unitCompleteCount") + "," + 
+				SEnumChecker.GetMemberName(completeCount, "completeCount") + "," + 
 				SEnumChecker.GetMemberName(RewardCode, "RewardCode");
 		}
 	}
 	public class SQuestDailyCompleteMeta : SProto
 	{
-		public Int32 RequirmentCount = default(Int32);
+		public Int32 RequirementCount = default(Int32);
 		public Int32 RewardCode = default(Int32);
 		public Int32 RefreshMinutes = default(Int32);
 		public SQuestDailyCompleteMeta()
@@ -2127,57 +2227,57 @@ namespace bb
 		}
 		public SQuestDailyCompleteMeta(SQuestDailyCompleteMeta Obj_)
 		{
-			RequirmentCount = Obj_.RequirmentCount;
+			RequirementCount = Obj_.RequirementCount;
 			RewardCode = Obj_.RewardCode;
 			RefreshMinutes = Obj_.RefreshMinutes;
 		}
-		public SQuestDailyCompleteMeta(Int32 RequirmentCount_, Int32 RewardCode_, Int32 RefreshMinutes_)
+		public SQuestDailyCompleteMeta(Int32 RequirementCount_, Int32 RewardCode_, Int32 RefreshMinutes_)
 		{
-			RequirmentCount = RequirmentCount_;
+			RequirementCount = RequirementCount_;
 			RewardCode = RewardCode_;
 			RefreshMinutes = RefreshMinutes_;
 		}
 		public override void Push(CStream Stream_)
 		{
-			Stream_.Pop(ref RequirmentCount);
+			Stream_.Pop(ref RequirementCount);
 			Stream_.Pop(ref RewardCode);
 			Stream_.Pop(ref RefreshMinutes);
 		}
 		public override void Push(JsonDataObject Value_)
 		{
-			Value_.Pop("RequirmentCount", ref RequirmentCount);
+			Value_.Pop("RequirementCount", ref RequirementCount);
 			Value_.Pop("RewardCode", ref RewardCode);
 			Value_.Pop("RefreshMinutes", ref RefreshMinutes);
 		}
 		public override void Pop(CStream Stream_)
 		{
-			Stream_.Push(RequirmentCount);
+			Stream_.Push(RequirementCount);
 			Stream_.Push(RewardCode);
 			Stream_.Push(RefreshMinutes);
 		}
 		public override void Pop(JsonDataObject Value_)
 		{
-			Value_.Push("RequirmentCount", RequirmentCount);
+			Value_.Push("RequirementCount", RequirementCount);
 			Value_.Push("RewardCode", RewardCode);
 			Value_.Push("RefreshMinutes", RefreshMinutes);
 		}
 		public void Set(SQuestDailyCompleteMeta Obj_)
 		{
-			RequirmentCount = Obj_.RequirmentCount;
+			RequirementCount = Obj_.RequirementCount;
 			RewardCode = Obj_.RewardCode;
 			RefreshMinutes = Obj_.RefreshMinutes;
 		}
 		public override string StdName()
 		{
 			return 
-				SEnumChecker.GetStdName(RequirmentCount) + "," + 
+				SEnumChecker.GetStdName(RequirementCount) + "," + 
 				SEnumChecker.GetStdName(RewardCode) + "," + 
 				SEnumChecker.GetStdName(RefreshMinutes);
 		}
 		public override string MemberName()
 		{
 			return 
-				SEnumChecker.GetMemberName(RequirmentCount, "RequirmentCount") + "," + 
+				SEnumChecker.GetMemberName(RequirementCount, "RequirementCount") + "," + 
 				SEnumChecker.GetMemberName(RewardCode, "RewardCode") + "," + 
 				SEnumChecker.GetMemberName(RefreshMinutes, "RefreshMinutes");
 		}

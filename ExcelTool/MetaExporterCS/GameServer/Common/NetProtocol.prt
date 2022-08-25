@@ -79,6 +79,7 @@ namespace bb
 		Buy
 		BuyChar
 		BuyPackage
+		BuyResource
 		DailyReward
 		SelectChar
 
@@ -123,6 +124,7 @@ namespace bb
 		Buy
 		BuyChar
 		BuyPackage
+		BuyResource
 		DailyReward
 		DailyRewardFail
 
@@ -482,7 +484,14 @@ namespace bb
 	struct SBuyPackageNetSc : SRewardDB
 	{
 		int32 Code
-
+	}
+	struct SBuyResourceNetCs
+	{
+		SResourceTypeData resourceTypeData
+	}
+	struct SBuyResourceNetSc
+	{
+		TResources ResourcesLeft
 	}
 
 	struct SDailyRewardNetCs

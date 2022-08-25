@@ -1078,6 +1078,7 @@ namespace bb
 		Character_Name_Dragon02,
 		Character_Name_Dragon03,
 		Character_Name_Dragon04,
+		ReachedMaximumLimit,
 		Max,
 		Null=-1,
 	}
@@ -1200,6 +1201,61 @@ namespace bb
 			return 
 				SEnumChecker.GetMemberName(TextName, "TextName") + "," + 
 				SEnumChecker.GetMemberName(Texts, "Texts");
+		}
+	}
+	public class SLanguageTextMeta : SProto
+	{
+		public ELanguage Language = default(ELanguage);
+		public String Text = string.Empty;
+		public SLanguageTextMeta()
+		{
+		}
+		public SLanguageTextMeta(SLanguageTextMeta Obj_)
+		{
+			Language = Obj_.Language;
+			Text = Obj_.Text;
+		}
+		public SLanguageTextMeta(ELanguage Language_, String Text_)
+		{
+			Language = Language_;
+			Text = Text_;
+		}
+		public override void Push(CStream Stream_)
+		{
+			Stream_.Pop(ref Language);
+			Stream_.Pop(ref Text);
+		}
+		public override void Push(JsonDataObject Value_)
+		{
+			Value_.Pop("Language", ref Language);
+			Value_.Pop("Text", ref Text);
+		}
+		public override void Pop(CStream Stream_)
+		{
+			Stream_.Push(Language);
+			Stream_.Push(Text);
+		}
+		public override void Pop(JsonDataObject Value_)
+		{
+			Value_.Push("Language", Language);
+			Value_.Push("Text", Text);
+		}
+		public void Set(SLanguageTextMeta Obj_)
+		{
+			Language = Obj_.Language;
+			Text = Obj_.Text;
+		}
+		public override string StdName()
+		{
+			return 
+				"bb.ELanguage" + "," + 
+				SEnumChecker.GetStdName(Text);
+		}
+		public override string MemberName()
+		{
+			return 
+				SEnumChecker.GetMemberName(Language, "Language") + "," + 
+				SEnumChecker.GetMemberName(Text, "Text");
 		}
 	}
 	public class SGameRetMeta : SProto
@@ -1596,68 +1652,6 @@ namespace bb
 				SEnumChecker.GetMemberName(IsPad, "IsPad") + "," + 
 				SEnumChecker.GetMemberName(IsTutorial, "IsTutorial") + "," + 
 				SEnumChecker.GetMemberName(Language, "Language");
-		}
-	}
-	public class SQuestClientMeta : SQuestMeta
-	{
-		public EText ETextName = default(EText);
-		public String IconName = string.Empty;
-		public SQuestClientMeta()
-		{
-		}
-		public SQuestClientMeta(SQuestClientMeta Obj_) : base(Obj_)
-		{
-			ETextName = Obj_.ETextName;
-			IconName = Obj_.IconName;
-		}
-		public SQuestClientMeta(SQuestMeta Super_, EText ETextName_, String IconName_) : base(Super_)
-		{
-			ETextName = ETextName_;
-			IconName = IconName_;
-		}
-		public override void Push(CStream Stream_)
-		{
-			base.Push(Stream_);
-			Stream_.Pop(ref ETextName);
-			Stream_.Pop(ref IconName);
-		}
-		public override void Push(JsonDataObject Value_)
-		{
-			base.Push(Value_);
-			Value_.Pop("ETextName", ref ETextName);
-			Value_.Pop("IconName", ref IconName);
-		}
-		public override void Pop(CStream Stream_)
-		{
-			base.Pop(Stream_);
-			Stream_.Push(ETextName);
-			Stream_.Push(IconName);
-		}
-		public override void Pop(JsonDataObject Value_)
-		{
-			base.Pop(Value_);
-			Value_.Push("ETextName", ETextName);
-			Value_.Push("IconName", IconName);
-		}
-		public void Set(SQuestClientMeta Obj_)
-		{
-			base.Set(Obj_);
-			ETextName = Obj_.ETextName;
-			IconName = Obj_.IconName;
-		}
-		public override string StdName()
-		{
-			return 
-				base.StdName() + "," + 
-				"bb.EText" + "," + 
-				SEnumChecker.GetStdName(IconName);
-		}
-		public override string MemberName()
-		{
-			return 
-				base.MemberName() + "," + 
-				SEnumChecker.GetMemberName(ETextName, "ETextName") + "," + 
-				SEnumChecker.GetMemberName(IconName, "IconName");
 		}
 	}
 	public class SShopClientMeta : SShopMeta
@@ -2852,6 +2846,116 @@ namespace bb
 				SEnumChecker.GetMemberName(MultiIslandTime, "MultiIslandTime") + "," + 
 				SEnumChecker.GetMemberName(MultiIslandValue, "MultiIslandValue") + "," + 
 				SEnumChecker.GetMemberName(MultiIslandRand, "MultiIslandRand");
+		}
+	}
+	public class QuestTypeValueMeta : SProto
+	{
+		public EText textName = default(EText);
+		public String iconName = string.Empty;
+		public QuestTypeValueMeta()
+		{
+		}
+		public QuestTypeValueMeta(QuestTypeValueMeta Obj_)
+		{
+			textName = Obj_.textName;
+			iconName = Obj_.iconName;
+		}
+		public QuestTypeValueMeta(EText textName_, String iconName_)
+		{
+			textName = textName_;
+			iconName = iconName_;
+		}
+		public override void Push(CStream Stream_)
+		{
+			Stream_.Pop(ref textName);
+			Stream_.Pop(ref iconName);
+		}
+		public override void Push(JsonDataObject Value_)
+		{
+			Value_.Pop("textName", ref textName);
+			Value_.Pop("iconName", ref iconName);
+		}
+		public override void Pop(CStream Stream_)
+		{
+			Stream_.Push(textName);
+			Stream_.Push(iconName);
+		}
+		public override void Pop(JsonDataObject Value_)
+		{
+			Value_.Push("textName", textName);
+			Value_.Push("iconName", iconName);
+		}
+		public void Set(QuestTypeValueMeta Obj_)
+		{
+			textName = Obj_.textName;
+			iconName = Obj_.iconName;
+		}
+		public override string StdName()
+		{
+			return 
+				"bb.EText" + "," + 
+				SEnumChecker.GetStdName(iconName);
+		}
+		public override string MemberName()
+		{
+			return 
+				SEnumChecker.GetMemberName(textName, "textName") + "," + 
+				SEnumChecker.GetMemberName(iconName, "iconName");
+		}
+	}
+	public class QuestTypeKeyValueMeta : SProto
+	{
+		public EQuestType questType = default(EQuestType);
+		public QuestTypeValueMeta questTypeValueMeta = new QuestTypeValueMeta();
+		public QuestTypeKeyValueMeta()
+		{
+		}
+		public QuestTypeKeyValueMeta(QuestTypeKeyValueMeta Obj_)
+		{
+			questType = Obj_.questType;
+			questTypeValueMeta = Obj_.questTypeValueMeta;
+		}
+		public QuestTypeKeyValueMeta(EQuestType questType_, QuestTypeValueMeta questTypeValueMeta_)
+		{
+			questType = questType_;
+			questTypeValueMeta = questTypeValueMeta_;
+		}
+		public override void Push(CStream Stream_)
+		{
+			Stream_.Pop(ref questType);
+			Stream_.Pop(ref questTypeValueMeta);
+		}
+		public override void Push(JsonDataObject Value_)
+		{
+			Value_.Pop("questType", ref questType);
+			Value_.Pop("questTypeValueMeta", ref questTypeValueMeta);
+		}
+		public override void Pop(CStream Stream_)
+		{
+			Stream_.Push(questType);
+			Stream_.Push(questTypeValueMeta);
+		}
+		public override void Pop(JsonDataObject Value_)
+		{
+			Value_.Push("questType", questType);
+			Value_.Push("questTypeValueMeta", questTypeValueMeta);
+		}
+		public void Set(QuestTypeKeyValueMeta Obj_)
+		{
+			questType = Obj_.questType;
+			questTypeValueMeta.Set(Obj_.questTypeValueMeta);
+		}
+		public override string StdName()
+		{
+			return 
+				"bb.EQuestType" + "," + 
+				SEnumChecker.GetStdName(questTypeValueMeta);
+		}
+		public override string MemberName()
+		{
+			return 
+				SEnumChecker.GetMemberName(questType, "questType") + "," + 
+				SEnumChecker.GetMemberName(questTypeValueMeta, "questTypeValueMeta");
 		}
 	}
 }

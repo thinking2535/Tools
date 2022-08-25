@@ -57,6 +57,7 @@ namespace bb
 		Buy,
 		BuyChar,
 		BuyPackage,
+		BuyResource,
 		DailyReward,
 		SelectChar,
 		BattleTouch,
@@ -97,6 +98,7 @@ namespace bb
 		Buy,
 		BuyChar,
 		BuyPackage,
+		BuyResource,
 		DailyReward,
 		DailyRewardFail,
 		BattleSync,
@@ -2196,6 +2198,98 @@ namespace bb
 			return 
 				base.MemberName() + "," + 
 				SEnumChecker.GetMemberName(Code, "Code");
+		}
+	}
+	public class SBuyResourceNetCs : SProto
+	{
+		public SResourceTypeData resourceTypeData = new SResourceTypeData();
+		public SBuyResourceNetCs()
+		{
+		}
+		public SBuyResourceNetCs(SBuyResourceNetCs Obj_)
+		{
+			resourceTypeData = Obj_.resourceTypeData;
+		}
+		public SBuyResourceNetCs(SResourceTypeData resourceTypeData_)
+		{
+			resourceTypeData = resourceTypeData_;
+		}
+		public override void Push(CStream Stream_)
+		{
+			Stream_.Pop(ref resourceTypeData);
+		}
+		public override void Push(JsonDataObject Value_)
+		{
+			Value_.Pop("resourceTypeData", ref resourceTypeData);
+		}
+		public override void Pop(CStream Stream_)
+		{
+			Stream_.Push(resourceTypeData);
+		}
+		public override void Pop(JsonDataObject Value_)
+		{
+			Value_.Push("resourceTypeData", resourceTypeData);
+		}
+		public void Set(SBuyResourceNetCs Obj_)
+		{
+			resourceTypeData.Set(Obj_.resourceTypeData);
+		}
+		public override string StdName()
+		{
+			return 
+				SEnumChecker.GetStdName(resourceTypeData);
+		}
+		public override string MemberName()
+		{
+			return 
+				SEnumChecker.GetMemberName(resourceTypeData, "resourceTypeData");
+		}
+	}
+	public class SBuyResourceNetSc : SProto
+	{
+		public TResource[] ResourcesLeft = new TResource[6];
+		public SBuyResourceNetSc()
+		{
+			for (int iResourcesLeft = 0; iResourcesLeft < ResourcesLeft.Length; ++iResourcesLeft)
+				ResourcesLeft[iResourcesLeft] = default(TResource);
+		}
+		public SBuyResourceNetSc(SBuyResourceNetSc Obj_)
+		{
+			ResourcesLeft = Obj_.ResourcesLeft;
+		}
+		public SBuyResourceNetSc(TResource[] ResourcesLeft_)
+		{
+			ResourcesLeft = ResourcesLeft_;
+		}
+		public override void Push(CStream Stream_)
+		{
+			Stream_.Pop(ref ResourcesLeft);
+		}
+		public override void Push(JsonDataObject Value_)
+		{
+			Value_.Pop("ResourcesLeft", ref ResourcesLeft);
+		}
+		public override void Pop(CStream Stream_)
+		{
+			Stream_.Push(ResourcesLeft);
+		}
+		public override void Pop(JsonDataObject Value_)
+		{
+			Value_.Push("ResourcesLeft", ResourcesLeft);
+		}
+		public void Set(SBuyResourceNetSc Obj_)
+		{
+			ResourcesLeft = Obj_.ResourcesLeft;
+		}
+		public override string StdName()
+		{
+			return 
+				SEnumChecker.GetStdName(ResourcesLeft);
+		}
+		public override string MemberName()
+		{
+			return 
+				SEnumChecker.GetMemberName(ResourcesLeft, "ResourcesLeft");
 		}
 	}
 	public class SDailyRewardNetCs : SProto

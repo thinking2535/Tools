@@ -44,6 +44,7 @@ namespace MetaExporterCS
                 MetaFile.Export<SShopMeta>("Shop", DataPath);
                 MetaFile.Export<SShopPackageServerMeta>("ShopPackage", DataPath);
                 MetaFile.Export<SShopDailyRewardServerMeta>("ShopDailyReward", DataPath);
+                MetaFile.Export<ShopExchangeMeta>("ShopExchange", DataPath);
 
                 MetaFile.Open("MetaDataXLS/Rank.xlsx");
                 MetaFile.Export<SRankMeta>("Rank", DataPath);

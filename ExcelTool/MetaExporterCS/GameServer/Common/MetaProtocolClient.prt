@@ -1,5 +1,6 @@
 include <Rso/Game/Protocol>
 include MetaProtocol
+include NetProtocol
 
 namespace bb
 {
@@ -1040,6 +1041,7 @@ namespace bb
 		Character_Name_Dragon02
 		Character_Name_Dragon03
 		Character_Name_Dragon04
+		ReachedMaximumLimit
 		Max
 		Null=-1
 	}
@@ -1069,6 +1071,11 @@ namespace bb
 	{
 		EText TextName
 		TTexts Texts
+	}
+	struct SLanguageTextMeta
+	{
+		ELanguage Language
+		wstring Text
 	}
 
 	struct SGameRetMeta
@@ -1107,11 +1114,6 @@ namespace bb
 		bool IsPad
 		bool IsTutorial
 		ELanguage Language
-	}
-	struct SQuestClientMeta : SQuestMeta
-	{
-		EText ETextName
-		wstring IconName
 	}
 	struct SShopClientMeta : SShopMeta
 	{
@@ -1218,5 +1220,15 @@ namespace bb
 		float MultiIslandTime
 		float MultiIslandValue
 		int32 MultiIslandRand
+	}
+	struct QuestTypeValueMeta
+	{
+		EText textName
+		wstring iconName
+	}
+	struct QuestTypeKeyValueMeta
+	{
+		EQuestType questType
+		QuestTypeValueMeta questTypeValueMeta
 	}
 }
